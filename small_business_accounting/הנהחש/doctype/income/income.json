@@ -1,0 +1,104 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{receipt}",
+ "creation": "2024-05-11 17:29:03.345963",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "id_num",
+  "receipt",
+  "receipt_date",
+  "client",
+  "\u05e4\u05e8\u05d8\u05d9\u05dd",
+  "column_break_mcuk",
+  "payment",
+  "payment_method",
+  "refernce",
+  "payment_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "id_num",
+   "fieldtype": "Int",
+   "label": "#",
+   "search_index": 1
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "\u05dc\u05e7\u05d5\u05d7",
+   "options": "Clients"
+  },
+  {
+   "fieldname": "payment_method",
+   "fieldtype": "Select",
+   "label": "\u05d0\u05de\u05e6\u05e2\u05d9 \u05ea\u05e9\u05dc\u05d5\u05dd",
+   "options": "\u05d4\u05e2\u05d1\u05e8\u05d4 \u05d1\u05e0\u05e7\u05d0\u05d9\u05ea\n\u05d4\u05de\u05d7\u05d0\u05d4\n\u05de\u05d6\u05d5\u05de\u05df\n\u05d1\u05d9\u05d8\nPaybox\n\u05d0\u05e9\u05e8\u05d0\u05d9"
+  },
+  {
+   "fieldname": "receipt",
+   "fieldtype": "Data",
+   "label": "\u05de\u05e1\u05e4\u05e8 \u05e7\u05d1\u05dc\u05d4"
+  },
+  {
+   "fieldname": "refernce",
+   "fieldtype": "Data",
+   "label": "\u05d0\u05e1\u05de\u05db\u05ea\u05d0",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "payment_date",
+   "fieldtype": "Date",
+   "label": "\u05ea\u05d0\u05e8\u05d9\u05da \u05e4\u05e8\u05e2\u05d5\u05df"
+  },
+  {
+   "fieldname": "\u05e4\u05e8\u05d8\u05d9\u05dd",
+   "fieldtype": "Data",
+   "label": "\u05e4\u05e8\u05d8\u05d9\u05dd"
+  },
+  {
+   "fieldname": "payment",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "\u05ea\u05e7\u05d1\u05d5\u05dc",
+   "precision": "0"
+  },
+  {
+   "fieldname": "receipt_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "\u05ea\u05d0\u05e8\u05d9\u05da"
+  },
+  {
+   "fieldname": "column_break_mcuk",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-18 13:19:22.165374",
+ "modified_by": "Administrator",
+ "module": "\u05d4\u05e0\u05d4\u05d7\u05e9",
+ "name": "Income",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
