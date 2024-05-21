@@ -1,0 +1,142 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{r_name}",
+ "creation": "2024-05-16 14:07:05.210755",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "creat_receipt",
+  "client",
+  "receipt_date",
+  "item_list",
+  "discount",
+  "load_lst",
+  "section_break_izin",
+  "inv_lst",
+  "h_p",
+  "column_break_jawm",
+  "quot_lst",
+  "section_break_uahh",
+  "notes",
+  "cancel_r",
+  "caceled",
+  "r_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "\u05e9\u05dd \u05dc\u05e7\u05d5\u05d7",
+   "options": "Clients",
+   "reqd": 1
+  },
+  {
+   "fieldname": "item_list",
+   "fieldtype": "Table",
+   "label": "\u05e4\u05e8\u05d9\u05d8\u05d9\u05dd",
+   "options": "Item Child List"
+  },
+  {
+   "fieldname": "load_lst",
+   "fieldtype": "Button",
+   "label": "\u05d8\u05e2\u05df \u05e4\u05e8\u05d9\u05d8\u05d9\u05dd \u05de\u05d4\u05e6\u05e2\u05d5\u05ea \u05de\u05d7\u05d9\u05e8 \u05d5\u05d7\u05e9\u05d1\u05d5\u05e0\u05d9\u05d5\u05ea"
+  },
+  {
+   "fieldname": "inv_lst",
+   "fieldtype": "Table MultiSelect",
+   "label": "\u05e8\u05e9\u05d9\u05de\u05ea \u05d7\u05e9\u05d1\u05d5\u05e0\u05d9\u05d5\u05ea \u05e2\u05e1\u05e7\u05d4",
+   "options": "List of Invoices"
+  },
+  {
+   "fieldname": "quot_lst",
+   "fieldtype": "Table MultiSelect",
+   "label": "\u05e8\u05e9\u05d9\u05de\u05ea \u05d4\u05e6\u05e2\u05d5\u05ea \u05de\u05d7\u05d9\u05e8",
+   "options": "List of Quotations"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "\u05d4\u05e2\u05e8\u05d5\u05ea"
+  },
+  {
+   "fieldname": "creat_receipt",
+   "fieldtype": "Button",
+   "label": "\u05d4\u05e4\u05e7\u05ea \u05e7\u05d1\u05dc\u05d4"
+  },
+  {
+   "fetch_from": "client.id_num",
+   "fieldname": "h_p",
+   "fieldtype": "Data",
+   "hidden": 1
+  },
+  {
+   "default": "0.00",
+   "fieldname": "discount",
+   "fieldtype": "Float",
+   "label": "\u05d4\u05e0\u05d7\u05d4",
+   "precision": "2"
+  },
+  {
+   "fieldname": "cancel_r",
+   "fieldtype": "Button",
+   "label": "\u05d1\u05d9\u05d8\u05d5\u05dc \u05e7\u05d1\u05dc\u05d4"
+  },
+  {
+   "default": "0",
+   "fieldname": "caceled",
+   "fieldtype": "Check",
+   "label": "\u05de\u05d1\u05d5\u05d8\u05dc\u05ea"
+  },
+  {
+   "fieldname": "r_name",
+   "fieldtype": "Data",
+   "label": "\u05ea\u05d9\u05e7\u05d5\u05df \u05de\u05e1\u05e4\u05e8 \u05e7\u05d1\u05dc\u05d4 (\u05dc\u05e9\u05e0\u05d5\u05ea \u05e8\u05e7 \u05d1\u05e2\u05ea \u05e9\u05d2\u05d9\u05d0\u05ea \u05de\u05e2\u05e8\u05db\u05ea!)",
+   "unique": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "receipt_date",
+   "fieldtype": "Date",
+   "label": "\u05ea\u05d0\u05e8\u05d9\u05da"
+  },
+  {
+   "fieldname": "section_break_izin",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_jawm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_uahh",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-18 13:21:29.060760",
+ "modified_by": "Administrator",
+ "module": "\u05d4\u05e0\u05d4\u05d7\u05e9",
+ "name": "Receipt",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
