@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:{supp}-{refernce}",
  "creation": "2024-05-11 17:54:38.568991",
