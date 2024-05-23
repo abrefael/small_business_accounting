@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:{client_name}",
  "creation": "2024-05-11 16:50:17.932210",
