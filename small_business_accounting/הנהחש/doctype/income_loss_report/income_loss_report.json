@@ -2,6 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "creation": "2024-06-03 13:38:51.167695",
+ "autoname": "format:{year}",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -115,6 +116,7 @@
  "modified_by": "Administrator",
  "module": "\u05d4\u05e0\u05d4\u05d7\u05e9",
  "name": "Income Loss Report",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
