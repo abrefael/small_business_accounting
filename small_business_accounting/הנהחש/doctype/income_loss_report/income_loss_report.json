@@ -11,7 +11,6 @@
   "car_non",
   "column_break_rcmz",
   "profit_pre",
-  "total_loss",
   "profit_adj",
   "\u05d4\u05db\u05e0\u05e1\u05d5\u05ea_section",
   "items",
@@ -43,11 +42,6 @@
    "fieldtype": "Float",
    "label": "\u05e8\u05d5\u05d5\u05d7 \u05e0\u05e7\u05d9 \u05dc\u05e4\u05e0\u05d9 \u05de\u05e1 \u05d4\u05db\u05e0\u05e1\u05d4",
    "precision": "0"
-  },
-  {
-   "fieldname": "total_loss",
-   "fieldtype": "Float",
-   "label": "\u05d4\u05e4\u05e1\u05d3 \u05e0\u05e7\u05d9 \u05dc\u05e4\u05e0\u05d9 \u05de\u05e1 \u05d4\u05db\u05e0\u05e1\u05d4"
   },
   {
    "fieldname": "profit_adj",
