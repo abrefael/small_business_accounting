@@ -1,0 +1,136 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-06-03 13:38:51.167695",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "year",
+  "calc",
+  "car_non",
+  "column_break_rcmz",
+  "profit_pre",
+  "total_loss",
+  "profit_adj",
+  "\u05d4\u05db\u05e0\u05e1\u05d5\u05ea_section",
+  "items",
+  "total_profit",
+  "column_break_yoeb",
+  "\u05d4\u05d5\u05e6\u05d0\u05d5\u05ea_\u05d4\u05e0\u05d4\u05dc\u05d4_\u05d5\u05db\u05dc\u05dc\u05d9\u05d5\u05ea",
+  "office",
+  "insurance",
+  "car",
+  "asset_loss"
+ ],
+ "fields": [
+  {
+   "fieldname": "year",
+   "fieldtype": "Int",
+   "label": "\u05e9\u05e0\u05d4 \u05e4\u05d9\u05e1\u05e7\u05dc\u05d9\u05ea"
+  },
+  {
+   "fieldname": "calc",
+   "fieldtype": "Button",
+   "label": "\u05d7\u05e9\u05d1"
+  },
+  {
+   "fieldname": "column_break_rcmz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "profit_pre",
+   "fieldtype": "Float",
+   "label": "\u05e8\u05d5\u05d5\u05d7 \u05e0\u05e7\u05d9 \u05dc\u05e4\u05e0\u05d9 \u05de\u05e1 \u05d4\u05db\u05e0\u05e1\u05d4",
+   "precision": "0"
+  },
+  {
+   "fieldname": "total_loss",
+   "fieldtype": "Float",
+   "label": "\u05d4\u05e4\u05e1\u05d3 \u05e0\u05e7\u05d9 \u05dc\u05e4\u05e0\u05d9 \u05de\u05e1 \u05d4\u05db\u05e0\u05e1\u05d4"
+  },
+  {
+   "fieldname": "profit_adj",
+   "fieldtype": "Float",
+   "label": "\u05e8\u05d5\u05d5\u05d7 \u05e0\u05e7\u05d9 \u05de\u05d5\u05ea\u05d0\u05dd \u05dc\u05de\u05e1 \u05d4\u05db\u05e0\u05e1\u05d4",
+   "precision": "0"
+  },
+  {
+   "fieldname": "\u05d4\u05db\u05e0\u05e1\u05d5\u05ea_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "\u05d4\u05db\u05e0\u05e1\u05d5\u05ea",
+   "options": "Income Child Table"
+  },
+  {
+   "fieldname": "total_profit",
+   "fieldtype": "Float",
+   "label": "\u05e1\u05d4\"\u05db \u05d4\u05db\u05e0\u05e1\u05d5\u05ea",
+   "precision": "0"
+  },
+  {
+   "fieldname": "column_break_yoeb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "\u05d4\u05d5\u05e6\u05d0\u05d5\u05ea_\u05d4\u05e0\u05d4\u05dc\u05d4_\u05d5\u05db\u05dc\u05dc\u05d9\u05d5\u05ea",
+   "fieldtype": "Heading",
+   "label": "\u05d4\u05d5\u05e6\u05d0\u05d5\u05ea \u05d4\u05e0\u05d4\u05dc\u05d4 \u05d5\u05db\u05dc\u05dc\u05d9\u05d5\u05ea"
+  },
+  {
+   "fieldname": "office",
+   "fieldtype": "Float",
+   "label": "\u05de\u05e9\u05e8\u05d3\u05d9\u05d5\u05ea \u05d5\u05d0\u05d7\u05d6\u05e7\u05d4",
+   "precision": "0"
+  },
+  {
+   "fieldname": "insurance",
+   "fieldtype": "Float",
+   "label": "\u05d1\u05d9\u05d8\u05d5\u05d7 \u05de\u05e7\u05e6\u05d5\u05e2\u05d9 \u05d5\u05d4\u05e9\u05ea\u05dc\u05de\u05d5\u05d9\u05d5\u05ea",
+   "precision": "0"
+  },
+  {
+   "fieldname": "car",
+   "fieldtype": "Float",
+   "label": "\u05e1\u05d4\"\u05db \u05d4\u05d5\u05e6\u05d0\u05d5\u05ea \u05e8\u05db\u05d1",
+   "precision": "0"
+  },
+  {
+   "fieldname": "car_non",
+   "fieldtype": "Float",
+   "label": "\u05d4\u05d5\u05e6\u05d0\u05d5\u05ea \u05e8\u05db\u05d1 \u05dc\u05d0 \u05de\u05d5\u05db\u05e8",
+   "precision": "0"
+  },
+  {
+   "fieldname": "asset_loss",
+   "fieldtype": "Float",
+   "label": "\u05e4\u05d7\u05ea"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-06-03 13:51:59.125883",
+ "modified_by": "Administrator",
+ "module": "\u05d4\u05e0\u05d4\u05d7\u05e9",
+ "name": "Income Loss Report",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
