@@ -115,7 +115,7 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
 		row_number = populate_totals('הנחה',f"{discount:,.2f}  ₪", row_number)
 		total = float(total) - discount
 		row_number = populate_totals('סה"כ אחרי הנחה',f"{total:,.2f}", row_number)
-	row_number = populate_totals('סה"כ פטור ממ"ע',f"{total:,.2f}", row_number)
+	row_number = populate_totals('סה"כ פטור ממ"ע',f"{total:,.2f} ₪", row_number)
 	row_number = populate_totals('ממ"ע', "0.00", row_number)
 	if total*100%100 > 0:
 		row_number = populate_totals('עיגול אגורות',f"{total:,.0f}  ₪", row_number)
