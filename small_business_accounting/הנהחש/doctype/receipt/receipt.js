@@ -120,11 +120,20 @@ frappe.ui.form.on('Receipt', {
 });
 
 
+frappe.ui.form.on('Receipt', {
+	validate: function(frm) {
+        if(frm.doc.caceled) {
+            frappe.throw(__('זו קבלה מבוטלת! אין להפיקה מחדש! נא לשכפל את הקבלה מתפריט "..." ולהפיק קבלה חדשה.'));
+            validated = false;
+        }
+    }
+});
+
+
 
 frappe.ui.form.on('Receipt', {
 	cancel_r(frm) {
 	    frm.set_value('caceled', 1);
-	    frappe.db.delete_doc('Income', frm.doc.name);
         frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.cancel_receipt',
         args: {
         'q_num': frm.doc.name + '.pdf'
