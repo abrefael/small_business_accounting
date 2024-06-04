@@ -77,6 +77,8 @@ frappe.ui.form.on('Receipt', {
 	    var highest_sum = 0;
 	    var price;
 	    var q;
+	    var sum;
+	    var item;
 	    if (!frm.doc.notes){
 	        notes='';
 	    }
@@ -86,11 +88,13 @@ frappe.ui.form.on('Receipt', {
 	    items.forEach((row)=> {
 	        price = row.price;
 		q = row.quant;
-		if (price * q > highest_sum){
-		    frm.doc.most_impact = row.item;
-		    highest_sum = price * q;
+		sum = price * q;
+		item = row.item;
+		if (sum > highest_sum){
+		    frm.doc.most_impact = item;
+		    highest_sum = sum;
 		}
-	        item_list = item_list+'"'+row.item+'":["'+row.desc+'",'+q+','+price+'],';
+	        item_list = item_list+'"'+item+'":["'+row.desc+'",'+q+','+price+'],';
 	    });
 	    var discount = frm.doc.discount;
 	    item_list = item_list.substring(0, item_list.length - 1)+'}';
