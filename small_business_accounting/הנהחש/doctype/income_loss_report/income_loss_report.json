@@ -107,7 +107,8 @@
    "default": "0",
    "fieldname": "asset_loss",
    "fieldtype": "Float",
-   "label": "\u05e4\u05d7\u05ea"
+   "label": "\u05e4\u05d7\u05ea",
+   "precision": "0"
   },
   {
    "default": "0",
