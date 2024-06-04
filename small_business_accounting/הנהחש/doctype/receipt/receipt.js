@@ -111,7 +111,7 @@ frappe.ui.form.on('Receipt', {
         'notes': notes
         }
         }).then(r => {
-		frm.doc.total = Number(r.message);
+		frm.set_value("total",Number(r.message));
 		refresh_field("total");
 		frm.save();
             window.open(`${window.location.origin}/files/accounting/${q_num}.pdf`, '_blank').focus();
