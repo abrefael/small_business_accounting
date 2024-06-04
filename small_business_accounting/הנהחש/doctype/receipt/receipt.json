@@ -138,7 +138,8 @@
   },
   {
    "fieldname": "most_impact",
-   "fieldtype": "Data"
+   "fieldtype": "Data",
+   "hidden": 1
   }
  ],
  "index_web_pages_for_search": 1,
