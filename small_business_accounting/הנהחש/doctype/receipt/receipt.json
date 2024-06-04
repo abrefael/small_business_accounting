@@ -8,15 +8,20 @@
  "field_order": [
   "creat_receipt",
   "client",
+  "column_break_wofg",
   "receipt_date",
+  "total",
+  "section_break_xmaw",
   "item_list",
   "discount",
+  "section_break_mtme",
   "load_lst",
   "section_break_izin",
   "inv_lst",
   "h_p",
   "column_break_jawm",
   "quot_lst",
+  "most_impact",
   "section_break_uahh",
   "notes",
   "cancel_r",
@@ -112,11 +117,33 @@
   {
    "fieldname": "section_break_uahh",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_wofg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "label": "\u05e1\u05db\u05d5\u05dd \u05e7\u05d1\u05dc\u05d4",
+   "precision": "0"
+  },
+  {
+   "fieldname": "section_break_xmaw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_mtme",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "most_impact",
+   "fieldtype": "Data"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-18 13:21:29.060760",
+ "modified": "2024-06-04 08:23:43.998658",
  "modified_by": "Administrator",
  "module": "\u05d4\u05e0\u05d4\u05d7\u05e9",
  "name": "Receipt",
