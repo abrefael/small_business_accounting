@@ -1,6 +1,8 @@
 app_name = "small_business_accounting"
 app_title = "Small Business Accounting"
 app_publisher = "Alon Ben Refael"
+app_icon = "fa fa-th"
+app_color = "#565468"
 app_description = "Accounting for people with small business (VAT free businesses in Israel)"
 app_email = "alonbr@proton.me"
 app_license = "mit"
