@@ -162,7 +162,7 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
 	paragraph.append(image_frame)
 	body.append(paragraph)
 	save_new(document,TARGET)
-	return (f"{total:,.0f}")
+	return (total)
 	
 @frappe.whitelist()
 def cancel_receipt(q_num):
