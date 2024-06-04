@@ -92,6 +92,7 @@ frappe.ui.form.on('Receipt', {
 		item = row.item;
 		if (sum > highest_sum){
 		    frm.doc.most_impact = item;
+		    refresh_field("most_impact");
 		    highest_sum = sum;
 		}
 	        item_list = item_list+'"'+item+'":["'+row.desc+'",'+q+','+price+'],';
