@@ -10,9 +10,26 @@
 
 frappe.ui.form.on('Income Loss Report', {
 	calc(frm) {
+		var total_profit = 0;
+		var asset_loss = 0;
+		var losses = 0;
+		var profit_pre;
+		var profit_adj;
+		var car_non = 0;
 	    function finale(){
-			frm.set_value('profit_adj',frm.doc.profit_pre + frm.doc.car_non - frm.doc.car - frm.doc.insurance - frm.doc.office - frm.doc.subconturctors - frm.doc.asset_loss);
+			frm.set_value('total_profit',total_profit);
+			frm.set_value('asset_loss',asset_loss);
+			refresh_field("total_profit");
+			refresh_field("asset_loss");
+			profit_pre = total_profit - losses - asset_loss;
+			frm.set_value('profit_pre', profit_pre);
+		    refresh_field("profit_pre");
+			frm.set_value('car_non', car_non);
+			refresh_field('car_non');
+			profit_adj = profit_pre + car_non;
+			frm.set_value('profit_adj', profit_adj);
 		    refresh_field('profit_adj');
+		    frm.save();
 	    }
 		frm.save();
 		var year = frm.doc.year;
@@ -31,8 +48,7 @@ frappe.ui.form.on('Income Loss Report', {
 				} else {
 					rec_dict[itm] = item.total;
 				}
-				frm.set_value('profit_pre',frm.doc.profit_pre+item.total);
-				refresh_field("profit_pre");
+				total_profit = total_profit + item.total;
 			});
 			var row;
 			for (const key of Object.keys(rec_dict)) {
@@ -41,48 +57,47 @@ frappe.ui.form.on('Income Loss Report', {
 				row.sum = rec_dict[key];
 				refresh_field("items");
 			}
-			finale();
-		});
-		frappe.db.get_list('Assets',{
-			filters:{
-				'fiscal_year':year
-			},
-			fields:['loss_requested']
-		}).then(records => {
-				records.forEach((item) => {
-					frm.set_value('asset_loss',frm.doc.asset_loss+item.loss_requested);
-					refresh_field("asset_loss");
+			frappe.db.get_list('Assets',{
+				filters:{
+					'fiscal_year':year
+				},
+				fields:['loss_requested']
+			}).then(records => {
+					records.forEach((item) => {
+						asset_loss = asset_loss + item.loss_requested;
+					});
+					frappe.db.get_list('Expenses',{
+						filters:{
+							'when':['between', year+'-01-01', year+'-12-31']
+						},
+						fields:['type', 'sum', 'actual_sum']
+					}).then(records => {
+						records.forEach((item) => {
+							let actual_sum = item.actual_sum;
+							let typ = item.type;
+							let val = item.sum;
+							if (typ == 'הוצאות רכב'){
+								car_non = car_non + val - actual_sum;
+								frm.set_value('car',frm.doc.car + val);
+								refresh_field('car');
+								losses = losses + val;
+							} else if (typ == 'ביטוח מקצועי והשתלמויות'){
+								frm.set_value('insurance',frm.doc.insurance + actual_sum);
+								refresh_field('insurance');
+								losses = losses + actual_sum;
+							} else if (typ == 'משרדיות ואחזקה'){
+								frm.set_value('office',frm.doc.office + actual_sum);
+								refresh_field('office');
+								losses = losses + actual_sum;
+							} else if (typ == 'קבלני משנה'){
+								frm.set_value('subconturctors',frm.doc.subconturctors + actual_sum);
+								refresh_field('subconturctors');
+								losses = losses + actual_sum;
+							}
+						});
+						finale();
+					});
 				});
-				finale();
-			});
-		frappe.db.get_list('Expenses',{
-			filters:{
-				'when':['between', year+'-01-01', year+'-12-31']
-			},
-			fields:['type', 'sum', 'actual_sum']
-		}).then(records => {
-            console.log(records);
-			records.forEach((item) => {
-				let actual_sum = item.actual_sum;
-				let typ = item.type;
-				let val = item.sum;
-				if (typ == 'הוצאות רכב'){
-					frm.set_value('car_non',frm.doc.car_non + val - actual_sum);
-					refresh_field('car_non');
-					frm.set_value('car',frm.doc.car + val);
-					refresh_field('car');
-				} else if (typ == 'ביטוח מקצועי והשתלמויות'){
-					frm.set_value('insurance',frm.doc.insurance + actual_sum);
-					refresh_field('insurance');
-				} else if (typ == 'משרדיות ואחזקה'){
-					frm.set_value('office',frm.doc.office + actual_sum);
-					refresh_field('office');
-				} else if (typ == 'קבלני משנה'){
-					frm.set_value('subconturctors',frm.doc.subconturctors + actual_sum);
-					refresh_field('subconturctors');
-				}
-			});
-			finale();
 		});
 	}
 });
