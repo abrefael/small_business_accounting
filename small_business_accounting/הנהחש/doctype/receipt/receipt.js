@@ -106,9 +106,8 @@ frappe.ui.form.on('Receipt', {
         'notes': notes
         }
         }).then(r => {
-		//frm.doc.total = 
-			console.log(Number(r.message));
-		//refresh_field("total");
+		frm.doc.total = Number(r.message);
+		refresh_field("total");
             window.open(`${window.location.origin}/files/accounting/${q_num}.pdf`, '_blank').focus();
         });
 	}
