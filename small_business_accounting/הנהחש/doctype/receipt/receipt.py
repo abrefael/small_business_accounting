@@ -21,8 +21,6 @@ def get_item_list(item):
 @frappe.whitelist()
 def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
 	import odfdo, json, os
-	from datetime import date
-	today = date.today().strftime("%d.%m.%Y")
 	OUTPUT_DIR = os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/accounting/'
 	item_dict = json.loads(item_list)
 	from odfdo import (
@@ -70,7 +68,6 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
 	document.merge_styles_from(style_document)
 	body = document.body
 	body.append(style_document.get_formatted_text())
-	body.append(Paragraph(today, style="ltr"))
 	title1 = Header(1, f"{objective}: {q_num} (מקור)")
 	body.append(title1)
 	title1 = Header(2, f"עבור: {client}")
