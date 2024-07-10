@@ -4,6 +4,20 @@ app_publisher = "Alon Ben Refael"
 app_description = "Accounting for people with small business (VAT free businesses in Israel)"
 app_email = "alonbr@proton.me"
 app_license = "mit"
+app_logo_url = "/assets/small_business_accounting/images/T-money-logo.svg"
+
+website_context = {
+	"favicon": "/assets/small_business_accounting/images/bitum-favicon.svg",
+	"splash_image": "/assets/small_business_accounting/images/T-money-logo.svg",
+}
+# required_apps = []
+
+# Includes in <head>
+# ------------------
+
+# include js, css files in header of desk.html
+app_include_css = "/assets/small_business_accounting/css/small_business_accounting.css"
+app_include_js = "/assets/small_business_accounting/js/small_business_accounting.js"
 # required_apps = []
 
 # Includes in <head>
