@@ -20,6 +20,7 @@
   "prev_total_loss",
   "total_loss",
   "current_value",
+  "re_calc",
   "notes"
  ],
  "fields": [
@@ -27,6 +28,11 @@
    "fieldname": "fiscal_year",
    "fieldtype": "Int",
    "label": "\u05e9\u05e0\u05ea \u05d4\u05de\u05e1 \u05dc\u05d7\u05d9\u05e9\u05d5\u05d1"
+  },
+  {
+   "fieldname": "re_calc",
+   "fieldtype": "Button",
+   "label": "\u05d7\u05e9\u05d1 \u05de\u05d7\u05d3\u05e9"
   },
   {
    "fieldname": "asset_name",
@@ -69,12 +75,14 @@
   },
   {
    "fieldname": "loss_rate_by_law",
+   "default": "30",
    "fieldtype": "Percent",
    "label": "\u05e9\u05d9\u05e2\u05d5\u05e8 \u05d4\u05e4\u05d7\u05ea \u05d4\u05e7\u05d1\u05d5\u05e2 \u05e2\u05dc \u05e4\u05d9 \u05d3\u05d9\u05df (5)",
    "reqd": 1
   },
   {
    "fieldname": "rate_loss",
+   "default": "30",
    "fieldtype": "Percent",
    "label": "\u05e9\u05d9\u05e2\u05d5\u05e8 \u05d4\u05e4\u05d7\u05ea \u05d4\u05e0\u05ea\u05d1\u05e2 (6)",
    "reqd": 1
