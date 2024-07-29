@@ -7,21 +7,62 @@
 // 	},
 // });small_business_accounting
 
+frappe.ui.form.on('Invoice', {
+	calc_sum(frm) {
+		calculate_sum(frm);
+	}
+});
+
+
+function calculate_sum(frm){
+	var items = frm.doc.item_list;
+	var sum = 0;
+	var discounted_sum = 0;
+	var discount = frm.doc.discount;
+	for (let i = 0; i < items.length; i++){
+		let row = items[i];
+		let quant = row.quant;
+		let price = row.price;
+		sum += quant * price;
+	}
+	frm.set_value('sum',sum);
+	if (discount > 1){
+		discounted_sum = sum - discount;
+	}
+	else {
+		discounted_sum = sum * (1 - discount);
+	}
+	frm.set_value('discounted_sum',discounted_sum);
+	frm.save();
+}
+
+
+frappe.ui.form.on('Invoice', {
+	discount(frm) {
+		calculate_sum(frm);
+	}
+});
+
+
 
 frappe.ui.form.on('Invoice', {
 	create_invoice(frm) {
 	    var items = frm.doc.item_list;
 	    var item_list='{';
 	    var notes;
+		var discount = frm.doc.discount;
 	    if (!frm.doc.notes){
 	        notes='';
 	    }
 	    else{
 	        notes = frm.doc.notes;
 	    }
-	    items.forEach((row)=> {
-	        item_list = item_list+'"'+row.item+'":["'+row.desc+'",'+row.quant+','+row.price+'],';
-	    });
+	    for (let i = 0; i < items.length; i++){
+			let row = items[i];
+			let quant = row.quant;
+			let price = row.price;
+	        item_list = item_list+'"'+row.item+'":["'+row.desc+'",'+ quant + ',' + price + '],';
+	    }
 	    item_list = item_list.substring(0, item_list.length - 1)+'}';
 	    console.log(item_list);
 	    var q_num = frm.doc.name;
@@ -29,7 +70,7 @@ frappe.ui.form.on('Invoice', {
         args: {
         'client': frm.doc.client,
         'item_list': item_list,
-        'discount': frm.doc.discount,
+        'discount': discount,
         'h_p': frm.doc.h_p,
         'q_num': q_num,
         'objective':"חשבונית עסקה מס'",
