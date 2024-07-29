@@ -7,14 +7,61 @@
  "engine": "InnoDB",
  "field_order": [
   "quotation",
+  "column_break_I",
+  "invoice",
+  "section_break_I",
   "client",
   "item_list",
+  "section_break_II",
+  "calc_sum",
   "discount",
-  "invoice",
+  "column_break_II",
+  "sum",
+  "discounted_sum",
+  "section_break_III",
   "notes",
   "h_p"
  ],
  "fields": [
+  {
+   "default": "0.00",
+   "fieldname": "sum",
+   "fieldtype": "Float",
+   "label": "\u05e1\u05db\u05d5\u05dd (\u05dc\u05dc\u05d0 \u05d4\u05e0\u05d7\u05d4)",
+   "precision": "2"
+  },
+  {
+   "default": "0.00",
+   "fieldname": "discounted_sum",
+   "fieldtype": "Float",
+   "label": "\u05e1\u05db\u05d5\u05dd \u05dc\u05d0\u05d7\u05e8 \u05d4\u05e0\u05d7\u05d4",
+   "precision": "2"
+  },
+  {
+   "fieldname": "calc_sum",
+   "fieldtype": "Button",
+   "label": "\u05d7\u05e9\u05d1 \u05e1\u05db\u05d5\u05dd"
+  },
+  {
+   "fieldname": "column_break_I",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_I",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_II",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_II",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_III",
+   "fieldtype": "Section Break"
+  },
   {
    "fieldname": "client",
    "fieldtype": "Link",
