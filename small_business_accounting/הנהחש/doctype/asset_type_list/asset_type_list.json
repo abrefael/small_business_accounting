@@ -22,7 +22,7 @@
   {
    "fieldname": "percent",
    "fieldtype": "Percent",
-   "label": "\u05ea\u05d9\u05d0\u05d5\u05e8 \u05e4\u05e8\u05d9\u05d8",
+   "label": "\u05d0\u05d7\u05d5\u05d6 \u05e4\u05d7\u05ea",
    "reqd": 1
   },
   {
