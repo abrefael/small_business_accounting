@@ -27,8 +27,8 @@ def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
 	)
 	def save_new(document: Document, name: str):
 		new_path = OUTPUT_DIR + name
-		document.save(new_path, pretty=True)
-		os.system(f'/usr/bin/soffice --headless --convert-to pdf:writer_pdf_Export --outdir {OUTPUT_DIR} {new_path}')
+		document.save(new_path + '.odt', pretty=True)
+		os.system(f'/usr/bin/soffice --headless --convert-to pdf:writer_pdf_Export --outdir {OUTPUT_DIR} {new_path}.pdf')
 	def populate_items(prod, val, quant, cost, row_number):
 		row = Row()
 		row.set_value("A", prod)
@@ -55,7 +55,6 @@ def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
 		table.set_row(row_number, row)
 		table.set_span((column - 3, row_number, column - 1, row_number), merge=True)
 		return row_number
-	TARGET = q_num + ".odt"
 	document = Document("text")
 	body = document.body
 	document.delete_styles()
@@ -153,7 +152,7 @@ def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
 	paragraph = Paragraph("", style="ltr")
 	paragraph.append(image_frame)
 	body.append(paragraph)
-	save_new(document,TARGET)
+	save_new(document,q_num)
 	
 
 
