@@ -39,13 +39,11 @@
   },
   {
    "fieldname": "objective_more_I",
-   "fieldtype": "Data",
-   "label": ""
+   "fieldtype": "Data"
   },
   {
    "fieldname": "objective_more_II",
-   "fieldtype": "Data",
-   "label": ""
+   "fieldtype": "Data"
   },
   {
    "fieldname": "lst_of_dest",
