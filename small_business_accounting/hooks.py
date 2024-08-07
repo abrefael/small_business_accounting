@@ -82,7 +82,7 @@ app_include_js = "/assets/small_business_accounting/js/small_business_accounting
 # ------------
 
 # before_install = "small_business_accounting.install.before_install"
-# after_install = "small_business_accounting.install.after_install"
+after_install = "small_business_accounting.install.after_install"
 
 # Uninstallation
 # ------------
