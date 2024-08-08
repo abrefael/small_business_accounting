@@ -7,7 +7,7 @@ app_license = "mit"
 app_logo_url = "/assets/small_business_accounting/images/T-money-logo.svg"
 
 website_context = {
-	"favicon": "/assets/small_business_accounting/images/bitum-favicon.svg",
+	"favicon": "/assets/small_business_accounting/images/T-money-logo.svg",
 	"splash_image": "/assets/small_business_accounting/images/T-money-logo.svg",
 }
 # required_apps = []
