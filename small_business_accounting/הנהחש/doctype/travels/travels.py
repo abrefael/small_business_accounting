@@ -30,9 +30,9 @@ def Create_Travel_Report(objective, lst_of_dest, expenses, trip_name):
 	total = 0
 	
 	def save_new(document: Document, name: str):
-	new_path = OUTPUT_DIR + name
-	document.save(new_path, pretty=True)
-	os.system(f'/usr/bin/soffice --headless --convert-to pdf:writer_pdf_Export --outdir {OUTPUT_DIR} {new_path}')
+		new_path = OUTPUT_DIR + name
+		document.save(new_path, pretty=True)
+		os.system(f'/usr/bin/soffice --headless --convert-to pdf:writer_pdf_Export --outdir {OUTPUT_DIR} {new_path}')
 	def draw_table(table):
 		border = make_table_cell_border_string(thick="0.01cm", color="black")
 		cell_style = create_table_cell_style(
