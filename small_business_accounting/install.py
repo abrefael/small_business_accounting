@@ -13,6 +13,6 @@ def after_install():
 			type = row[0]
 			doc.name = type
 			doc.asset_type = type
-			doc.percent = row[1]
+			doc.percent = float(row[1])
 			doc.insert()
 	
