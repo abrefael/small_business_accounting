@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:{asset_name}",
+ "autoname": "field:asset_name",
  "allow_rename": 1,
  "creation": "2024-05-18 12:10:33.916082",
  "doctype": "DocType",
@@ -9,6 +9,7 @@
   "calculate",
   "fiscal_year",
   "asset_name",
+  "asset_type",
   "purchase_date",
   "activation_date",
   "original_price",
@@ -74,8 +75,16 @@
    "read_only": 1
   },
   {
+   "fieldname": "asset_type",
+   "fieldtype": "Link",
+   "label": "\u05e1\u05d5\u05d2 \u05e4\u05e8\u05d9\u05d8",
+   "options": "Asset Type List",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "asset_type.percent",
+   "read_only": 1
    "fieldname": "loss_rate_by_law",
-   "default": "30",
    "fieldtype": "Percent",
    "label": "\u05e9\u05d9\u05e2\u05d5\u05e8 \u05d4\u05e4\u05d7\u05ea \u05d4\u05e7\u05d1\u05d5\u05e2 \u05e2\u05dc \u05e4\u05d9 \u05d3\u05d9\u05df (5)",
    "reqd": 1
@@ -128,7 +137,7 @@
  "modified_by": "Administrator",
  "module": "\u05d4\u05e0\u05d4\u05d7\u05e9",
  "name": "Assets",
- "naming_rule": "Expression",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
