@@ -29,7 +29,7 @@
   {
    "fieldname": "build_report",
    "fieldtype": "Button",
-   "label": "\u05e6\u05d5\u05e8 \u05d3\u05d5\u05d7",
+   "label": "\u05e6\u05d5\u05e8 \u05d3\u05d5\u05d7"
   },
   {
    "fieldname": "objective",
