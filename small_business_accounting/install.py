@@ -20,6 +20,18 @@ def after_install():
 		doc.asset_type = type
 		doc.percent = float(row[1])
 		doc.insert()
+	print("אנא הכניסו חתימה להצעות מחיר, חשבוניות עסקה וקבלות. לסיום לחצו Ctrl-D:")
+	contents = []
+	while True:
+		try:
+			line = input()
+		except EOFError:
+			break
+		contents.append(line)
+	'\n'.join(contents)
+	frappe.db.set_single_value('Signature','signature')
+	frappe.db.commit()
+
 
 
 def after_migrate():
