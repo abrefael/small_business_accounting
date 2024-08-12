@@ -28,8 +28,8 @@ def after_install():
 		except EOFError:
 			break
 		contents.append(line)
-	'\n'.join(contents)
-	frappe.db.set_single_value('Signature','signature')
+	signature = '\n'.join(contents)
+	frappe.db.set_single_value('Signature','signature',signature)
 	frappe.db.commit()
 
 
