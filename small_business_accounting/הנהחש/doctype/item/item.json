@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "allow_import": 1,
  "autoname": "format:{item_name}",
  "creation": "2024-05-11 16:31:11.314643",
  "doctype": "DocType",
