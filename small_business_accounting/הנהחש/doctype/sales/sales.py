@@ -99,7 +99,7 @@ def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
 	discount = float(discount)
 	if discount > 0 and discount < 1:
 		discount = discount*100
-		row_number = populate_totals('הנחה (%)',f"{discount:,.0f}  ₪", row_number)
+		row_number = populate_totals('הנחה (%)',f"{discount:,.0f}", row_number)
 		total = float(total) *(1 - discount/100)
 		row_number = populate_totals('סה"כ אחרי הנחה',f"{total:,.2f}  ₪", row_number)
 	elif discount > 1:
