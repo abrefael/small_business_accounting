@@ -145,7 +145,7 @@ def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
 	body.append(Paragraph(""))
 	paragraph = Paragraph("בברכה,", style="sign")
 	body.append(paragraph)
-	paragraph = Paragraph(frappe.db.get_single_value('Signature','name'), style = "sign")
+	paragraph = Paragraph(frappe.db.get_single_value('Signature','myname'), style = "sign")
 	body.append(paragraph)
 	paragraph = Paragraph(frappe.db.get_single_value('Signature','ocupation'), style = "sign")
 	body.append(paragraph)
