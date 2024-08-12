@@ -5,19 +5,13 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "myname",
-  "ocupation"
+  "signature"
  ],
  "fields": [
   {
-   "fieldname": "myname",
-   "fieldtype": "Data",
-   "label": "\u05e2\u05dc \u05d4\u05d7\u05ea\u05d5\u05dd..."
-  },
-  {
-   "fieldname": "ocupation",
-   "fieldtype": "Data",
-   "label": "\u05de\u05e7\u05e6\u05d5\u05e2"
+   "fieldname": "signature",
+   "fieldtype": "text",
+   "label": "\u05d7\u05ea\u05d9\u05de\u05d4"
   }
  ],
  "index_web_pages_for_search": 1,
