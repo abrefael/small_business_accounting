@@ -7,6 +7,9 @@ import shutil, os, csv
 
 def after_install():
 	shutil.copytree(src_fldr, dest_fldr)
+	print("Enter your name:")
+	x = input()
+	print("Hello, " + x)
 	file = open(dest_fldr + csv_file,'r')
 	reader = csv.reader(file, delimiter=',')
 	for row in reader:
