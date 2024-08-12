@@ -5,7 +5,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "name",
+  "myname",
   "ocupation"
  ],
  "fields": [
