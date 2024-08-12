@@ -6,10 +6,12 @@ import frappe
 import shutil, os, csv
 
 def after_install():
+	from getpass import getpass
+	import subprocess
+	print("Enter sudo password:")
+	password = getpass()
 	shutil.copytree(src_fldr, dest_fldr)
-	print("Enter your name:")
-	x = input()
-	print("Hello, " + x)
+	subprocess.call('echo ' + password + ' | sudo -S apt install libreoffice-writer-nogui -y', shell=True)
 	file = open(dest_fldr + csv_file,'r')
 	reader = csv.reader(file, delimiter=',')
 	for row in reader:
