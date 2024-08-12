@@ -8,7 +8,6 @@ import shutil, os, csv
 def after_install():
 	from getpass import getpass
 	import subprocess
-	print("Enter sudo password:")
 	password = getpass()
 	shutil.copytree(src_fldr, dest_fldr)
 	subprocess.call('echo ' + password + ' | sudo -S apt install libreoffice-writer-nogui -y', shell=True)
