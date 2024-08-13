@@ -46,7 +46,6 @@ frappe.ui.form.on('Receipt', {
 		}
 		for (let i = 0; i < N; i++){
 			let itm = invs_n_quots[i];
-			console.log(itm);
 			let dtype;
 			if (itm[0] == 'Q'){
 				dtype = 'Sales';
@@ -54,15 +53,14 @@ frappe.ui.form.on('Receipt', {
 			else{
 				dtype = 'Invoice';
 			}
-			console.log(dtype);
 			total_discounts += 'שימו לב!\n';
 			frappe.db.get_value(dtype, itm, ['sum', 'discounted_sum'])
 				.then(r => {
-					console.log(r);
 					let sum = r.message.sum;
 					let discounted_sum = r.message.discounted_sum;
 					if (N == 1){
-						frm.set_value(discount, sum - discounted_sum);
+						console.log(sum - discounted_sum);
+						frm.set_value('discount', sum - discounted_sum);
 						frm.refresh();
 					}
 					else{
