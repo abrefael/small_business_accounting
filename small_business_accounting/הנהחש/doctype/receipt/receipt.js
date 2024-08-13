@@ -58,6 +58,7 @@ frappe.ui.form.on('Receipt', {
 			total_discounts += 'שימו לב!\n';
 			frappe.db.get_value(dtype, itm, ['sum', 'discounted_sum'])
 				.then(r => {
+					console.log(r);
 					let sum = r.message.sum;
 					let discounted_sum = r.message.discounted_sum;
 					if (inv_lst.length == 1){
