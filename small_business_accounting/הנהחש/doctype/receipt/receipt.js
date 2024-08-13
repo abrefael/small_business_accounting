@@ -40,11 +40,11 @@ frappe.ui.form.on('Receipt', {
 				invs_n_quots.push(quot_lst[i].quot);
 			}
 		}
-		if (invs_n_quots.length == 0){
+		N = invs_n_quots.length
+		if (N == 0){
 			frappe.throw(__('קודם צריך לבחור הצעות מחיר ו/או חשבוניות עסקה'));
 		}
-		console.log(invs_n_quots);
-		for (let i = 0; i < invs_n_quots.length; i++){
+		for (let i = 0; i < N; i++){
 			let itm = invs_n_quots[i];
 			console.log(itm);
 			let dtype;
@@ -61,7 +61,7 @@ frappe.ui.form.on('Receipt', {
 					console.log(r);
 					let sum = r.message.sum;
 					let discounted_sum = r.message.discounted_sum;
-					if (inv_lst.length == 1){
+					if (N == 1){
 						frm.set_value(discount, sum - discounted_sum);
 						frm.refresh();
 					}
@@ -79,29 +79,16 @@ frappe.ui.form.on('Receipt', {
 				});
 			frappe.model.with_doc(dtype, itm, function () {
 				let source_doc = frappe.model.get_doc(dtype, itm);
-				$.each(source_doc.item_list, function (index, source_row) {
+				let src_lst = source_doc.item_list;
+				for (let i = 0; i < src_lst.length; i++){
 					var addChild = frm.add_child("item_list");
-					addChild.item = source_row.item;
-					addChild.quant = source_row.quant;
+					addChild.item = src_lst[i].item;
+					addChild.quant = src_lst[i].quant;
 					frm.refresh_field('item_list');
-				});
+				}
 			});
-		// frappe.call('small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.get_item_list', itm)
-			// .then(r => {
-				// var itm_lst = r.message[0];
-				// var quant_lst = r.message[1];
-				// var i=0;
-				// var item;
-				// while (i<itm_lst.length){
-					// item = frm.add_child("item_list");
-					// item.item = itm_lst[i];
-					// item.quant = quant_lst[i];
-					// i++;
-					// refresh_field("item_list");
-				// }
-			calculate_sum(frm);
-				// });
 		}
+		calculate_sum(frm);
 	}
 });
 
@@ -216,4 +203,3 @@ frappe.ui.form.on('Receipt', {
         });
 	}
 });
-
