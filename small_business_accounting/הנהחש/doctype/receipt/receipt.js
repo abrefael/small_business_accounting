@@ -11,15 +11,18 @@ frappe.ui.form.on('Receipt', {
 		if((!frm.doc.r_name)||(frm.doc.name.includes("new-receipt"))){
 		frappe.db.count('Receipt')
 			.then(count => {
-				var name = 'YBR' + String(count+1).padStart(5, '0');
-				frm.set_value('r_name', name);
-				frm.set_value('caceled', 0);
+				frappe.db.get_single_value('System Settings', 'time_zone')
+					.then(inits => {
+						var name = inits + String(count+1).padStart(5, '0');
+						frm.set_value('r_name', name);
+						frm.set_value('caceled', 0);
+					});
 			});
 		}
 	}
 });
 
-var total_discounts = '';
+var total_discounts = 'שימו לב!<p>';
 frappe.ui.form.on('Receipt', {
 	load_lst(frm) {
 		if (frm.is_new()){
@@ -53,7 +56,6 @@ frappe.ui.form.on('Receipt', {
 			else{
 				dtype = 'Invoice';
 			}
-			total_discounts += 'שימו לב!\n';
 			frappe.db.get_value(dtype, itm, ['sum', 'discounted_sum'])
 				.then(r => {
 					let sum = r.message.sum;
@@ -66,12 +68,12 @@ frappe.ui.form.on('Receipt', {
 					else{
 					let q_v;
 					if (dtype == 'Sales'){
-						q_v = 'הצעת מחיר כוללת הנחה בסך: ';
+						q_v = 'הצעת מחיר ' + itm + ' כוללת הנחה בסך: ';
 					}
 					else{
-						q_v = 'חשבונית עסקה כוללת הנחה בסך: ';
+						q_v = 'חשבונית עסקה ' + itm + ' כוללת הנחה בסך: ';
 					}
-					total_discounts += q_v + (sum - discounted_sum) + 'ש"ח.\n'
+					total_discounts += q_v + (sum - discounted_sum) + ' ש"ח.<p>'
 					console.log(total_discounts);
 					}
 				});
@@ -85,9 +87,7 @@ frappe.ui.form.on('Receipt', {
 					frm.refresh_field('item_list');
 				}
 			});
-			//calculate_sum(frm);
 		}
-		//frm.save();
 	}
 });
 
@@ -133,7 +133,7 @@ frappe.ui.form.on('Receipt', {
 	        frappe.throw(__('זו קבלה מבוטלת! אין להפיקה מחדש! נא לשכפל את הקבלה מתפריט "..." ולהפיק קבלה חדשה.'));
 	        return;
 	    }
-		if (total_discounts != ''){
+		if (total_discounts > 'שימו לב!<p>'){
 			frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
 			() => {
 				console.log('yes');
