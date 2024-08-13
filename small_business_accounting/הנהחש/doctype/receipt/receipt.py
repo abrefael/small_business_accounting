@@ -7,16 +7,6 @@ from frappe.utils import cstr
 
 class Receipt(Document):
 	pass
-	
-@frappe.whitelist()
-def get_item_list(item):
-	data = frappe.db.sql(f"SELECT item,quant FROM `tabItem Child List` WHERE parent='{item}';")
-	items=[]
-	quant=[]
-	for row in data:
-		items = items + [row[0]]
-		quant = quant + [row[1]]
-	return [items,quant]
 
 @frappe.whitelist()
 def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
