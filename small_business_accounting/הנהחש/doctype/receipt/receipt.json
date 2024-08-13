@@ -8,15 +8,15 @@
  "field_order": [
   "creat_receipt",
   "client",
+  "column_break_wofg",
   "receipt_date",
   "total",
-  "column_break_wofg",
-  "payment_method",
-  "refernce",
-  "payment_date",
   "section_break_xmaw",
   "item_list",
+  "section_break_I",
   "discount",
+  "column_break_I",
+  "calc_sum",
   "section_break_mtme",
   "load_lst",
   "section_break_izin",
@@ -39,6 +39,11 @@
    "label": "\u05e9\u05dd \u05dc\u05e7\u05d5\u05d7",
    "options": "Clients",
    "reqd": 1
+  },
+  {
+   "fieldname": "calc_sum",
+   "fieldtype": "Button",
+   "label": "\u05d7\u05e9\u05d1 \u05e1\u05db\u05d5\u05dd"
   },
   {
    "fieldname": "item_list",
@@ -117,6 +122,13 @@
    "fieldname": "column_break_jawm",
    "fieldtype": "Column Break"
   },
+   "fieldname": "section_break_I",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_I",
+   "fieldtype": "Column Break"
+  },
   {
    "fieldname": "section_break_uahh",
    "fieldtype": "Section Break"
@@ -143,27 +155,11 @@
    "fieldname": "most_impact",
    "fieldtype": "Data",
    "hidden": 1
-  },
-  {
-   "fieldname": "payment_method",
-   "fieldtype": "Select",
-   "label": "\u05d0\u05de\u05e6\u05e2\u05d9 \u05ea\u05e9\u05dc\u05d5\u05dd",
-   "options": "\u05d4\u05e2\u05d1\u05e8\u05d4 \u05d1\u05e0\u05e7\u05d0\u05d9\u05ea\n\u05d4\u05de\u05d7\u05d0\u05d4\n\u05de\u05d6\u05d5\u05de\u05df\n\u05d1\u05d9\u05d8\nPaybox\n\u05d0\u05e9\u05e8\u05d0\u05d9"
-  },
-  {
-   "fieldname": "refernce",
-   "fieldtype": "Data",
-   "label": "\u05d0\u05e1\u05de\u05db\u05ea\u05d0"
-  },
-  {
-   "fieldname": "payment_date",
-   "fieldtype": "Date",
-   "label": "\u05ea\u05d0\u05e8\u05d9\u05da \u05e4\u05e8\u05e2\u05d5\u05df"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-05 08:53:04.078767",
+ "modified": "2024-06-04 08:23:43.998658",
  "modified_by": "Administrator",
  "module": "\u05d4\u05e0\u05d4\u05d7\u05e9",
  "name": "Receipt",
