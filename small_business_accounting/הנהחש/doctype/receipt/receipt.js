@@ -58,7 +58,6 @@ frappe.ui.form.on('Receipt', {
 			total_discounts += 'שימו לב!\n';
 			frappe.db.get_value(dtype, itm, ['sum', 'discounted_sum'])
 				.then(r => {
-					console.log(r);
 					let sum = r.message.sum;
 					let discounted_sum = r.message.discounted_sum;
 					if (inv_lst.length == 1){
@@ -74,41 +73,32 @@ frappe.ui.form.on('Receipt', {
 						q_v = 'חשבונית עסקה כוללת הנחה בסך: ';
 					}
 					total_discounts += q_v + (sum - discounted_sum) + 'ש"ח.\n'
+					console.log(total_discounts);
 					}
 				});
-				frappe.ui.form.on(dtype, {
-					item_list: function(frm, cdt, cdn) {
-						var row = locals[cdt][cdn];
-						if (row.item) {
-							console.log(row.item);
-							console.log(row.quant);
-							// frappe.model.with_doc(dtype, row.[CHILD_TABLE_LINK_FIELD], function() {
-								// var doc = frappe.model.get_doc("[SOURCE_DOCTYPE]", row.[CHILD_TABLE_LINK FIELD]);
-								// $.each(doc.[SOURCE_DOCTYPE_CHILD_TABLE] || [], function(i, r) {
-									// if(r.[SOURCE_CHILD_TABLE_FIELD] == frm.doc.[TARGET_PARENT_DOCTYPE_FIELD]) {
-										// var df = frappe.meta.get_docfield("CHILD_TABLE_TARGET_DOCTYPE","[TARGET_CHILD_TABLE_CUSTOM_FIELD]", frm.doc.name);
-										// df.options += ["\n" + r.[TARGET_CHILD_TABLE_CUSTOM_FIELD]];
-									// }
-								// })
-							// });
-							// frm.refresh_field("[TARGET_DOCTYPE_CHILD_TABLE]")
-						}
-					}
+			frappe.model.with_doc(dtype, frm.doc.item_list, function () {
+				let source_doc = frappe.model.get_doc(dtype, frm.doc.item_list);
+				$.each(source_doc.consumos, function (index, source_row) {
+					var addChild = frm.add_child("item_list");
+					addChild.item = source_row.item;
+					addChild.quant = source_row.quant;
+					frm.refresh_field('item_list');
 				});
-			// frappe.call('small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.get_item_list', itm)
-				// .then(r => {
-					// var itm_lst = r.message[0];
-					// var quant_lst = r.message[1];
-					// var i=0;
-					// var item;
-					// while (i<itm_lst.length){
-						// item = frm.add_child("item_list");
-						// item.item = itm_lst[i];
-						// item.quant = quant_lst[i];
-						// i++;
-						// refresh_field("item_list");
-					// }
-					calculate_sum(frm);
+			});
+		// frappe.call('small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.get_item_list', itm)
+			// .then(r => {
+				// var itm_lst = r.message[0];
+				// var quant_lst = r.message[1];
+				// var i=0;
+				// var item;
+				// while (i<itm_lst.length){
+					// item = frm.add_child("item_list");
+					// item.item = itm_lst[i];
+					// item.quant = quant_lst[i];
+					// i++;
+					// refresh_field("item_list");
+				// }
+			calculate_sum(frm);
 				// });
 		}
 	}
