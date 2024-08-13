@@ -32,7 +32,7 @@ def after_install():
 	print('עכשיו נרצה לדעת את ראשי התיבות של השם שלך (באנגלית):')
 	line = input()
 	frappe.db.set_single_value('Signature','signature',signature)
-	frappe.db.set_single_value('Initials','initials',signature)
+	frappe.db.set_single_value('Initials','initials',line)
 	frappe.db.commit()
 
 
