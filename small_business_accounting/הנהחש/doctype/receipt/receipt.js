@@ -110,6 +110,7 @@ function calculate_sum(frm){
 		discounted_sum = sum * (1 - discount);
 	}
 	frm.set_value('total',discounted_sum);
+	frm.refresh_field('total');
 	//frm.save();
 }
 
