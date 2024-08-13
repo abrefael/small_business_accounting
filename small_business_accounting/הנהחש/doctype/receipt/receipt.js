@@ -78,7 +78,7 @@ frappe.ui.form.on('Receipt', {
 				});
 			frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.get_item_list',
 				args: {
-						"item": itm.inv
+						"item": itm
 					}
 				}).then(r => {
 						var itm_lst = r.message[0];
