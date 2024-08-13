@@ -76,24 +76,21 @@ frappe.ui.form.on('Receipt', {
 					total_discounts += q_v + (sum - discounted_sum) + 'ש"ח.\n'
 					}
 				});
-			frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.get_item_list',
-				args: {
-						"item": itm
+			frappe.call('small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.get_item_list', itm)
+				.then(r => {
+					var itm_lst = r.message[0];
+					var quant_lst = r.message[1];
+					var i=0;
+					var item;
+					while (i<itm_lst.length){
+						item = frm.add_child("item_list");
+						item.item = itm_lst[i];
+						item.quant = quant_lst[i];
+						i++;
+						refresh_field("item_list");
 					}
-				}).then(r => {
-						var itm_lst = r.message[0];
-						var quant_lst = r.message[1];
-						var i=0;
-						var item;
-						while (i<itm_lst.length){
-							item = frm.add_child("item_list");
-							item.item = itm_lst[i];
-							item.quant = quant_lst[i];
-							i++;
-							refresh_field("item_list");
-						}
-						calculate_sum(frm);
-					});
+					calculate_sum(frm);
+				});
 		}
 	}
 });
