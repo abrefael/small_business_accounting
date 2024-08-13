@@ -59,22 +59,22 @@ frappe.ui.form.on('Receipt', {
 			frappe.db.get_value(dtype, itm, [sum, discounted_sum])
 				.then(r => {
 					console.log(r);
-					let sum = r.message.sum;
-					let discounted_sum = r.message.discounted_sum;
-					if (inv_lst.length == 1){
-						frm.set_value(discount, sum - discounted_sum);
-						frm.refresh();
-					}
-					else{
-					let q_v;
-					if (dtype == 'Sales'){
-						q_v = 'הצעת מחיר כוללת הנחה בסך: ';
-					}
-					else{
-						q_v = 'חשבונית עסקה כוללת הנחה בסך: ';
-					}
-					total_discounts += q_v + (sum - discounted_sum) + 'ש"ח.\n'
-					}
+					// let sum = r.message.sum;
+					// let discounted_sum = r.message.discounted_sum;
+					// if (inv_lst.length == 1){
+						// frm.set_value(discount, sum - discounted_sum);
+						// frm.refresh();
+					// }
+					// else{
+					// let q_v;
+					// if (dtype == 'Sales'){
+						// q_v = 'הצעת מחיר כוללת הנחה בסך: ';
+					// }
+					// else{
+						// q_v = 'חשבונית עסקה כוללת הנחה בסך: ';
+					// }
+					// total_discounts += q_v + (sum - discounted_sum) + 'ש"ח.\n'
+					// }
 				});
 			frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.get_item_list',
 				args: {
