@@ -30,6 +30,7 @@ frappe.ui.form.on('Receipt', {
 	    var inv_lst = frm.doc.inv_lst;
         var quot_lst = frm.doc.quot_lst;
         console.log(quot_lst);
+	console.log(inv_lst);
         if (inv_lst.length == 0){
             if (quot_lst.length == 0){
                 frappe.throw(__('קודם צריך לבחור הצעות מחיר ו/או חשבוניות עסקה'));
@@ -41,8 +42,10 @@ frappe.ui.form.on('Receipt', {
         else if (quot_lst.length != 0){
             inv_lst = inv_lst.concat(quot_lst);
         }
+	console.log(inv_lst);
         for (let i = 0; i < inv_lst.length; i++){
 			let itm = inv_lst[i];
+			console.log(itm);
 			let dtype;
 			if (itm[0] == 'Q'){
 				dtype = 'Sales';
@@ -50,6 +53,7 @@ frappe.ui.form.on('Receipt', {
 			else{
 				dtype = 'Invoice';
 			}
+		console.log(dtype);
 			total_discounts += 'שימו לב!\n';
 			frappe.db.get_value(dtype, itm, [sum, discounted_sum])
 				.then(r => {
