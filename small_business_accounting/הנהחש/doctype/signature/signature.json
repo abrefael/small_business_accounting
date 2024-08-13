@@ -10,7 +10,7 @@
  "fields": [
   {
    "fieldname": "signature",
-   "fieldtype": "text",
+   "fieldtype": "Text",
    "label": "\u05d7\u05ea\u05d9\u05de\u05d4"
   }
  ],
