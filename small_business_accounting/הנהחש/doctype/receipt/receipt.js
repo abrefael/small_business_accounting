@@ -77,7 +77,7 @@ frappe.ui.form.on('Receipt', {
 					console.log(total_discounts);
 					}
 				});
-			frappe.model.with_doc(dtype, frm.doc.item_list, function () {
+			frappe.model.with_doc(dtype, itm, function () {
 				let source_doc = frappe.model.get_doc(dtype, itm);
 				$.each(source_doc.item_list, function (index, source_row) {
 					var addChild = frm.add_child("item_list");
