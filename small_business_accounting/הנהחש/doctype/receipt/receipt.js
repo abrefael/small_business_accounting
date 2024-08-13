@@ -11,7 +11,7 @@ frappe.ui.form.on('Receipt', {
 		if((!frm.doc.r_name)||(frm.doc.name.includes("new-receipt"))){
 		frappe.db.count('Receipt')
 			.then(count => {
-				frappe.db.get_single_value('System Settings', 'time_zone')
+				frappe.db.get_single_value('Initials','initials')
 					.then(inits => {
 						var name = inits + String(count+1).padStart(5, '0');
 						frm.set_value('r_name', name);
