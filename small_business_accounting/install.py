@@ -29,7 +29,10 @@ def after_install():
 			break
 		contents.append(line)
 	signature = '\n'.join(contents)
+	print('עכשיו נרצה לדעת את ראשי התיבות של השם שלך (באנגלית):')
+	line = input()
 	frappe.db.set_single_value('Signature','signature',signature)
+	frappe.db.set_single_value('Initials','initials',signature)
 	frappe.db.commit()
 
 
