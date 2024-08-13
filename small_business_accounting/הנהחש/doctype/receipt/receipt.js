@@ -78,8 +78,8 @@ frappe.ui.form.on('Receipt', {
 					}
 				});
 			frappe.model.with_doc(dtype, frm.doc.item_list, function () {
-				let source_doc = frappe.model.get_doc(dtype, frm.doc.item_list);
-				$.each(source_doc.consumos, function (index, source_row) {
+				let source_doc = frappe.model.get_doc(dtype, frm.doc.itm);
+				$.each(source_doc.item_list, function (index, source_row) {
 					var addChild = frm.add_child("item_list");
 					addChild.item = source_row.item;
 					addChild.quant = source_row.quant;
