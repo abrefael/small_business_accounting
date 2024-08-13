@@ -61,7 +61,7 @@ frappe.ui.form.on('Receipt', {
 					if (N == 1){
 						console.log(sum - discounted_sum);
 						frm.set_value('discount', sum - discounted_sum);
-						frm.refresh();
+						frm.refresh_field('discount');
 					}
 					else{
 					let q_v;
