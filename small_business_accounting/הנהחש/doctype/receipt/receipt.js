@@ -85,7 +85,7 @@ frappe.ui.form.on('Receipt', {
 					frm.refresh_field('item_list');
 				}
 			});
-			calculate_sum(frm);
+			//calculate_sum(frm);
 		}
 		frm.save();
 	}
@@ -110,8 +110,7 @@ function calculate_sum(frm){
 		discounted_sum = sum * (1 - discount);
 	}
 	frm.set_value('total',discounted_sum);
-	frm.refresh_field('total');
-	//frm.save();
+	frm.save();
 }
 
 frappe.ui.form.on('Receipt', {
@@ -120,6 +119,12 @@ frappe.ui.form.on('Receipt', {
 	}
 });
 
+
+frappe.ui.form.on('Receipt', {
+	calc_sum(frm) {
+		calculate_sum(frm);
+	}
+});
 
 
 frappe.ui.form.on('Receipt', {
