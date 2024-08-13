@@ -20,31 +20,32 @@ frappe.ui.form.on('Receipt', {
 });
 
 var total_discounts = '';
-
-
 frappe.ui.form.on('Receipt', {
 	load_lst(frm) {
-	    if (frm.is_new()){
-	        frm.save();
-	    }
-	    var inv_lst = frm.doc.inv_lst;
-        var quot_lst = frm.doc.quot_lst;
-        console.log(quot_lst);
-	console.log(inv_lst);
-        if (inv_lst.length == 0){
-            if (quot_lst.length == 0){
-                frappe.throw(__('קודם צריך לבחור הצעות מחיר ו/או חשבוניות עסקה'));
-            }
-            else {
-                inv_lst = quot_lst;
-            }
-        }
-        else if (quot_lst.length != 0){
-            inv_lst = inv_lst.concat(quot_lst);
-        }
-	console.log(inv_lst);
-        for (let i = 0; i < inv_lst.length; i++){
-			let itm = inv_lst[i];
+		if (frm.is_new()){
+			frm.save();
+		}
+		var inv_lst = frm.doc.inv_lst;
+		var quot_lst = frm.doc.quot_lst;
+		var invs_n_quots=[];
+		var N = inv_lst.length;
+		if (N > 0){ 
+			for (let i = 0; i < N; i++){
+				invs_n_quots.push(inv_lst[i].inv);
+			}
+		}
+		N = quot_lst.length;
+		if (N > 0){ 
+			for (let i = 0; i < N; i++){
+				invs_n_quots.push(quot_lst[i].quot);
+			}
+		}
+		if (invs_n_quots.length == 0){
+			frappe.throw(__('קודם צריך לבחור הצעות מחיר ו/או חשבוניות עסקה'));
+		}
+		console.log(invs_n_quots);
+		for (let i = 0; i < invs_n_quots.length; i++){
+			let itm = invs_n_quots[i];
 			console.log(itm);
 			let dtype;
 			if (itm[0] == 'Q'){
@@ -53,7 +54,7 @@ frappe.ui.form.on('Receipt', {
 			else{
 				dtype = 'Invoice';
 			}
-		console.log(dtype);
+			console.log(dtype);
 			total_discounts += 'שימו לב!\n';
 			frappe.db.get_value(dtype, itm, [sum, discounted_sum])
 				.then(r => {
@@ -73,11 +74,11 @@ frappe.ui.form.on('Receipt', {
 					}
 					total_discounts += q_v + (sum - discounted_sum) + 'ש"ח.\n'
 					}
-				})
-    		frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.get_item_list',
-                    args: {
-                        "item": itm.inv
-                    }
+				});
+			frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.get_item_list',
+				args: {
+						"item": itm.inv
+					}
 				}).then(r => {
 						var itm_lst = r.message[0];
 						var quant_lst = r.message[1];
@@ -91,8 +92,8 @@ frappe.ui.form.on('Receipt', {
 							refresh_field("item_list");
 						}
 						calculate_sum(frm);
-				});
-        }
+					});
+		}
 	}
 });
 
