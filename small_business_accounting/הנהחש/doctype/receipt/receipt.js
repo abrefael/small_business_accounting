@@ -87,7 +87,7 @@ frappe.ui.form.on('Receipt', {
 			});
 			//calculate_sum(frm);
 		}
-		frm.save();
+		//frm.save();
 	}
 });
 
