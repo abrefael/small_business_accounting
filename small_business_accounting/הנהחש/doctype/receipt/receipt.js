@@ -138,6 +138,7 @@ frappe.ui.form.on('Receipt', {
 			}
 			else{
 				origin = '(מקור)';
+				frm.set_value('created', 1);
 			}
 			var items = frm.doc.item_list;
 			var item_list='{';
@@ -190,7 +191,6 @@ frappe.ui.form.on('Receipt', {
 			frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
 			() => {
 				build_the_receipt();
-				frm.set_value('created', 1);
 				return;
 			}, () => {
 				return;
