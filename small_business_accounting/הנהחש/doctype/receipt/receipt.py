@@ -10,7 +10,7 @@ class Receipt(Document):
 	
 
 @frappe.whitelist()
-def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes, origin):
+def Create_Receipt(client, item_list, discount, h_p, q_num, origin, objective, notes):
 	import odfdo, json, os
 	from datetime import date
 	today = date.today().strftime("%d.%m.%Y")
