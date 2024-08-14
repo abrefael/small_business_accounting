@@ -29,6 +29,7 @@
   "notes",
   "cancel_r",
   "caceled",
+  "created",
   "r_name"
  ],
  "fields": [
@@ -101,6 +102,12 @@
    "fieldname": "caceled",
    "fieldtype": "Check",
    "label": "\u05de\u05d1\u05d5\u05d8\u05dc\u05ea"
+  },
+  {
+   "default": "0",
+   "fieldname": "created",
+   "fieldtype": "Check",
+   "hidden": 1
   },
   {
    "fieldname": "r_name",
