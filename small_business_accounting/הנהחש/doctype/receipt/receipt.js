@@ -75,7 +75,7 @@ frappe.ui.form.on('Receipt', {
 						q_v = 'חשבונית עסקה ' + itm + ' כוללת הנחה בסך: ';
 					}
 					flag = true;
-					total_discounts += q_v + (sum - discounted_sum) + ' ש"ח.<p style="direction: rtl; text-align: right">'
+					total_discounts += q_v + (sum - discounted_sum) + ' ש"ח.<p style="direction: rtl; text-align: right">';
 					console.log(total_discounts);
 					}
 				});
@@ -149,7 +149,7 @@ frappe.ui.form.on('Receipt', {
 				frm.set_value('created', 1);
 			}, () => {
 				return;
-			})
+			});
 		}
 		var items = frm.doc.item_list;
 		var item_list='{';
