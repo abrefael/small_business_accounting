@@ -10,7 +10,7 @@ class Receipt(Document):
 	
 
 @frappe.whitelist()
-def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
+def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes, origin):
 	import odfdo, json, os
 	from datetime import date
 	today = date.today().strftime("%d.%m.%Y")
@@ -52,7 +52,7 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
 		table.set_row(row_number, row)
 		table.set_span((column - 4, row_number, column - 1, row_number), merge=True)
 		return row_number
-	TARGET = q_num + ".odt"
+	TARGET = q_num + origin + ".odt"
 	document = Document("text")
 	body = document.body
 	document.delete_styles()
@@ -62,7 +62,7 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
 	body = document.body
 	body.append(style_document.get_formatted_text())
 	body.append(Paragraph(today, style="ltr"))
-	title1 = Header(1, f"{objective}: {q_num}")
+	title1 = Header(1, f"{objective}: {q_num} {origin}")
 	body.append(title1)
 	title1 = Header(2, f"עבור: {client}")
 	body.append(title1)
