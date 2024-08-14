@@ -7,10 +7,13 @@ from frappe.utils import cstr
 
 class Receipt(Document):
 	pass
+	
 
 @frappe.whitelist()
 def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
 	import odfdo, json, os
+	from datetime import date
+	today = date.today().strftime("%d.%m.%Y")
 	OUTPUT_DIR = os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/accounting/'
 	item_dict = json.loads(item_list)
 	from odfdo import (
@@ -49,7 +52,7 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
 		table.set_row(row_number, row)
 		table.set_span((column - 4, row_number, column - 1, row_number), merge=True)
 		return row_number
-	
+	TARGET = q_num + ".odt"
 	document = Document("text")
 	body = document.body
 	document.delete_styles()
@@ -58,7 +61,8 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
 	document.merge_styles_from(style_document)
 	body = document.body
 	body.append(style_document.get_formatted_text())
-	title1 = Header(1, f"{objective}: {q_num} (מקור)")
+	body.append(Paragraph(today, style="ltr"))
+	title1 = Header(1, f"{objective}: {q_num}")
 	body.append(title1)
 	title1 = Header(2, f"עבור: {client}")
 	body.append(title1)
@@ -97,13 +101,13 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
 		discount = discount*100
 		row_number = populate_totals('הנחה (%)',f"{discount:,.0f}", row_number)
 		total = float(total) *(1 - discount/100)
-		row_number = populate_totals('סה"כ אחרי הנחה',f"{total:,.2f}  ₪", row_number)
+		row_number = populate_totals('סה"כ אחרי הנחה',f"{total:,.2f}", row_number)
 	elif discount > 1:
 		row_number = populate_totals('הנחה',f"{discount:,.2f}  ₪", row_number)
 		total = float(total) - discount
-		row_number = populate_totals('סה"כ אחרי הנחה',f"{total:,.2f}  ₪", row_number)
-	row_number = populate_totals('סה"כ פטור ממע"מ',f"{total:,.2f}  ₪", row_number)
-	row_number = populate_totals('מע"מ', "0.00", row_number)
+		row_number = populate_totals('סה"כ אחרי הנחה',f"{total:,.2f}", row_number)
+	row_number = populate_totals('סה"כ פטור ממ"ע',f"{total:,.2f} ₪", row_number)
+	row_number = populate_totals('ממ"ע', "0.00", row_number)
 	if total*100%100 > 0:
 		row_number = populate_totals('עיגול אגורות',f"{total:,.0f}  ₪", row_number)
 	row_number = populate_totals('סה"כ לתשלום',f"{total:,.0f}  ₪", row_number)
@@ -139,15 +143,18 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, objective, notes):
 		body.append(Paragraph(f"{notes}"))
 	body.append(Paragraph(""))
 	body.append(Paragraph(""))
-	paragraph = Paragraph("", style="sign")
-	paragraph.append_plain_text(frappe.db.get_single_value('Signature','signature'))
+	paragraph = Paragraph("בברכה,", style="sign")
+	body.append(paragraph)
+	paragraph = Paragraph("יפעת בן רפאל, .MSc", style = "sign")
+	body.append(paragraph)
+	paragraph = Paragraph("מרפאה בעיסוק", style="sign")
 	body.append(paragraph)
 	paragraph = Paragraph("", style="ltr")
 	paragraph.append(image_frame)
 	body.append(paragraph)
-	save_new(document,q_num + '.odt')
+	save_new(document,TARGET)
 
-
+	
 @frappe.whitelist()
 def cancel_receipt(q_num):
 	from pypdf import PdfWriter, PdfReader
