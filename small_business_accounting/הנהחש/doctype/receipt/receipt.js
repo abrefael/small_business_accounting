@@ -129,20 +129,20 @@ frappe.ui.form.on('Receipt', {
 });
 
 
-// frappe.ui.form.on('Receipt', {
-	// creat_receipt(frm) {
-		// if (frm.doc.caceled){
-			// frappe.throw(__('זו קבלה מבוטלת! אין להפיקה מחדש! נא לשכפל את הקבלה מתפריט "..." ולהפיק קבלה חדשה.'));
-			// return;
-		// }
-		// var origin;
-		// if (frm.doc.created){
-			// origin = '(עותק)';
-		// }
-		// else{
-			// origin = '(מקור)';
-		// }
-		if flag {
+frappe.ui.form.on('Receipt', {
+	creat_receipt(frm) {
+		if (frm.doc.caceled){
+			frappe.throw(__('זו קבלה מבוטלת! אין להפיקה מחדש! נא לשכפל את הקבלה מתפריט "..." ולהפיק קבלה חדשה.'));
+			return;
+		}
+		var origin;
+		if (frm.doc.created){
+			origin = '(עותק)';
+		}
+		else{
+			origin = '(מקור)';
+		}
+		if (flag) {
 			flag = false;
 			frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
 			() => {
@@ -151,49 +151,49 @@ frappe.ui.form.on('Receipt', {
 				return;
 			});
 		}
-		// var items = frm.doc.item_list;
-		// var item_list='{';
-		// var notes;
-		// var highest_sum = 0;
-		// if (!frm.doc.notes){
-			// notes='';
-		// }
-		// else{
-			// notes = frm.doc.notes;
-		// }
-		// for (let i = 0; i < items.length; i++){
-			// let row = items[i];
-			// let price = row.price;
-			// let q = row.quant;
-			// let sum = price * q;
-			// let item = row.item;
-			// if (sum > highest_sum){
-				// frm.doc.most_impact = item;
-				// refresh_field("most_impact");
-				// highest_sum = sum;
-			// }
-				// item_list = item_list+'"'+item+'":["'+row.desc+'",'+q+','+price+'],';
-		// }
-		// var discount = frm.doc.discount;
-		// var q_num = frm.doc.name;
-		// item_list = item_list.substring(0, item_list.length - 1)+'}';
-		// console.log(item_list);
-		// frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.Create_Receipt',
-		// args: {
-		// 'client': frm.doc.client,
-		// 'item_list': item_list,
-		// 'discount': discount,
-		// 'h_p': frm.doc.h_p,
-		// 'q_num': q_num,
-		// 'origin': origin,
-		// 'objective':"קבלה מס'",
-		// 'notes': notes
-		// }
-		// }).then(r => {
-			// window.open(`${window.location.origin}/files/accounting/${q_num + origin}.pdf`, '_blank').focus();
-		// });
-	// }
-// });
+		var items = frm.doc.item_list;
+		var item_list='{';
+		var notes;
+		var highest_sum = 0;
+		if (!frm.doc.notes){
+			notes='';
+		}
+		else{
+			notes = frm.doc.notes;
+		}
+		for (let i = 0; i < items.length; i++){
+			let row = items[i];
+			let price = row.price;
+			let q = row.quant;
+			let sum = price * q;
+			let item = row.item;
+			if (sum > highest_sum){
+				frm.doc.most_impact = item;
+				refresh_field("most_impact");
+				highest_sum = sum;
+			}
+				item_list = item_list+'"'+item+'":["'+row.desc+'",'+q+','+price+'],';
+		}
+		var discount = frm.doc.discount;
+		var q_num = frm.doc.name;
+		item_list = item_list.substring(0, item_list.length - 1)+'}';
+		console.log(item_list);
+		frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.Create_Receipt',
+		args: {
+		'client': frm.doc.client,
+		'item_list': item_list,
+		'discount': discount,
+		'h_p': frm.doc.h_p,
+		'q_num': q_num,
+		'origin': origin,
+		'objective':"קבלה מס'",
+		'notes': notes
+		}
+		}).then(r => {
+			window.open(`${window.location.origin}/files/accounting/${q_num + origin}.pdf`, '_blank').focus();
+		});
+	}
+});
 
 
 frappe.ui.form.on('Receipt', {
