@@ -22,7 +22,7 @@ frappe.ui.form.on('Receipt', {
 	}
 });
 
-var total_discounts = 'שימו לב!<p>';
+var total_discounts = '<p style="dir: rtl">שימו לב!<p>';
 frappe.ui.form.on('Receipt', {
 	load_lst(frm) {
 		if (frm.is_new()){
@@ -133,13 +133,21 @@ frappe.ui.form.on('Receipt', {
 	        frappe.throw(__('זו קבלה מבוטלת! אין להפיקה מחדש! נא לשכפל את הקבלה מתפריט "..." ולהפיק קבלה חדשה.'));
 	        return;
 	    }
-		if (total_discounts > 'שימו לב!<p>'){
+		if (total_discounts > '<p style="dir: rtl">שימו לב!<p>'){
 			frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
 			() => {
 				console.log('yes');
 			}, () => {
 				return;
 			})
+		}
+		var origin;
+		if (frm.doc.created){
+			origin = '(עותק)';
+		}
+		else{
+			frm.set_value('created', 1);
+			origin = '(מקור)';
 		}
 	    var items = frm.doc.item_list;
 	    var item_list='{';
@@ -165,6 +173,7 @@ frappe.ui.form.on('Receipt', {
 				item_list = item_list+'"'+item+'":["'+row.desc+'",'+q+','+price+'],';
 	    }
 	    var discount = frm.doc.discount;
+		var q_num = frm.doc.name;
 	    item_list = item_list.substring(0, item_list.length - 1)+'}';
 	    console.log(item_list);
         frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.Create_Receipt',
@@ -173,7 +182,7 @@ frappe.ui.form.on('Receipt', {
         'item_list': item_list,
         'discount': discount,
         'h_p': frm.doc.h_p,
-        'q_num': frm.doc.name,
+        'q_num': q_num + origin,
         'objective':"קבלה מס'",
         'notes': notes
         }
@@ -198,9 +207,10 @@ frappe.ui.form.on('Receipt', {
 frappe.ui.form.on('Receipt', {
 	cancel_r(frm) {
 	    frm.set_value('caceled', 1);
+		var q_num = frm.doc.name + '.pdf';
         frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.cancel_receipt',
         args: {
-        'q_num': frm.doc.name + '.pdf'
+        'q_num': q_num
         }
         }).then(r => {
             frm.save();
