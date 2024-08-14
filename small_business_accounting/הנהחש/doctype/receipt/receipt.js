@@ -195,18 +195,20 @@ frappe.ui.form.on('Receipt', {
 		else{
 			origin = '(מקור)';
 			frm.set_value('created', 1);
-		}
-		if (flag) {
-			flag = false;
-			frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
-			() => {
+			if (flag) {
+				flag = false;
+				frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
+				() => {
+					build_the_receipt();
+					return;
+				}, () => {
+					return;
+				});
+			}
+			else{
 				build_the_receipt();
-				return;
-			}, () => {
-				return;
-			});
+			}
 		}
-		build_the_receipt();
 	}
 });
 
