@@ -22,6 +22,7 @@ frappe.ui.form.on('Receipt', {
 	}
 });
 
+var flag = false;
 var total_discounts = '<p style="direction: rtl">שימו לב!<p>';
 frappe.ui.form.on('Receipt', {
 	load_lst(frm) {
@@ -73,6 +74,7 @@ frappe.ui.form.on('Receipt', {
 					else{
 						q_v = 'חשבונית עסקה ' + itm + ' כוללת הנחה בסך: ';
 					}
+					flag = true;
 					total_discounts += q_v + (sum - discounted_sum) + ' ש"ח.<p>'
 					console.log(total_discounts);
 					}
@@ -133,21 +135,21 @@ frappe.ui.form.on('Receipt', {
 	        frappe.throw(__('זו קבלה מבוטלת! אין להפיקה מחדש! נא לשכפל את הקבלה מתפריט "..." ולהפיק קבלה חדשה.'));
 	        return;
 	    }
-		if (total_discounts > '<p style="direction: rtl">שימו לב!<p>'){
-			frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
-			() => {
-				console.log('yes');
-			}, () => {
-				return;
-			})
-		}
 		var origin;
 		if (frm.doc.created){
 			origin = '(עותק)';
 		}
 		else{
-			frm.set_value('created', 1);
 			origin = '(מקור)';
+		}
+		if flag {
+			flag = false;
+			frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
+			() => {
+				frm.set_value('created', 1);
+			}, () => {
+				return;
+			})
 		}
 	    var items = frm.doc.item_list;
 	    var item_list='{';
@@ -182,12 +184,13 @@ frappe.ui.form.on('Receipt', {
         'item_list': item_list,
         'discount': discount,
         'h_p': frm.doc.h_p,
-        'q_num': q_num + origin,
+        'q_num': q_num,
+		'origin': origin,
         'objective':"קבלה מס'",
         'notes': notes
         }
         }).then(r => {
-            window.open(`${window.location.origin}/files/accounting/${q_num}.pdf`, '_blank').focus();
+            window.open(`${window.location.origin}/files/accounting/${q_num + origin}.pdf`, '_blank').focus();
         });
 	}
 });
@@ -207,7 +210,7 @@ frappe.ui.form.on('Receipt', {
 frappe.ui.form.on('Receipt', {
 	cancel_r(frm) {
 	    frm.set_value('caceled', 1);
-		var q_num = frm.doc.name + '.pdf';
+		var q_num = frm.doc.name + '(מקור).pdf';
         frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.cancel_receipt',
         args: {
         'q_num': q_num
