@@ -30,7 +30,7 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, origin, objective, n
 	def save_new(document: Document, name: str):
 		new_path = OUTPUT_DIR + name
 		document.save(new_path, pretty=True)
-		os.system(f'/usr/bin/soffice --headless --convert-to pdf:writer_pdf_Export --outdir {OUTPUT_DIR} {new_path}')
+		os.system(f"/usr/bin/soffice --headless --convert-to pdf:writer_pdf_Export --outdir {OUTPUT_DIR} '{new_path}'")
 	def populate_items(prod, desc, val, quant, cost, row_number):
 		row = Row()
 		row.set_value("A", prod)
