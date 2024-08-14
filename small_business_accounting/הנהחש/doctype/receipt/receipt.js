@@ -24,74 +24,74 @@ frappe.ui.form.on('Receipt', {
 
 var flag = false;
 var total_discounts = '<p style="direction: rtl; text-align: right">שימו לב!<p style="direction: rtl; text-align: right">';
-frappe.ui.form.on('Receipt', {
-	load_lst(frm) {
-		if (frm.is_new()){
-			frm.save();
-		}
-		var inv_lst = frm.doc.inv_lst;
-		var quot_lst = frm.doc.quot_lst;
-		var invs_n_quots=[];
-		var N = inv_lst.length;
-		if (N > 0){ 
-			for (let i = 0; i < N; i++){
-				invs_n_quots.push(inv_lst[i].inv);
-			}
-		}
-		N = quot_lst.length;
-		if (N > 0){ 
-			for (let i = 0; i < N; i++){
-				invs_n_quots.push(quot_lst[i].quot);
-			}
-		}
-		N = invs_n_quots.length
-		if (N == 0){
-			frappe.throw(__('קודם צריך לבחור הצעות מחיר ו/או חשבוניות עסקה'));
-		}
-		for (let i = 0; i < N; i++){
-			let itm = invs_n_quots[i];
-			let dtype;
-			if (itm[0] == 'Q'){
-				dtype = 'Sales';
-			}
-			else{
-				dtype = 'Invoice';
-			}
-			frappe.db.get_value(dtype, itm, ['sum', 'discounted_sum'])
-				.then(r => {
-					let sum = r.message.sum;
-					let discounted_sum = r.message.discounted_sum;
-					if (N == 1){
-						console.log(sum - discounted_sum);
-						frm.set_value('discount', sum - discounted_sum);
-						frm.refresh_field('discount');
-					}
-					else{
-					let q_v;
-					if (dtype == 'Sales'){
-						q_v = 'הצעת מחיר ' + itm + ' כוללת הנחה בסך: ';
-					}
-					else{
-						q_v = 'חשבונית עסקה ' + itm + ' כוללת הנחה בסך: ';
-					}
-					flag = true;
-					total_discounts += q_v + (sum - discounted_sum) + ' ש"ח.<p style="direction: rtl; text-align: right">';
-					console.log(total_discounts);
-					}
-				});
-			frappe.model.with_doc(dtype, itm, function () {
-				let source_doc = frappe.model.get_doc(dtype, itm);
-				let src_lst = source_doc.item_list;
-				for (let i = 0; i < src_lst.length; i++){
-					var addChild = frm.add_child("item_list");
-					addChild.item = src_lst[i].item;
-					addChild.quant = src_lst[i].quant;
-					frm.refresh_field('item_list');
-				}
-			});
-		}
-	}
-});
+// frappe.ui.form.on('Receipt', {
+	// load_lst(frm) {
+		// if (frm.is_new()){
+			// frm.save();
+		// }
+		// var inv_lst = frm.doc.inv_lst;
+		// var quot_lst = frm.doc.quot_lst;
+		// var invs_n_quots=[];
+		// var N = inv_lst.length;
+		// if (N > 0){ 
+			// for (let i = 0; i < N; i++){
+				// invs_n_quots.push(inv_lst[i].inv);
+			// }
+		// }
+		// N = quot_lst.length;
+		// if (N > 0){ 
+			// for (let i = 0; i < N; i++){
+				// invs_n_quots.push(quot_lst[i].quot);
+			// }
+		// }
+		// N = invs_n_quots.length
+		// if (N == 0){
+			// frappe.throw(__('קודם צריך לבחור הצעות מחיר ו/או חשבוניות עסקה'));
+		// }
+		// for (let i = 0; i < N; i++){
+			// let itm = invs_n_quots[i];
+			// let dtype;
+			// if (itm[0] == 'Q'){
+				// dtype = 'Sales';
+			// }
+			// else{
+				// dtype = 'Invoice';
+			// }
+			// frappe.db.get_value(dtype, itm, ['sum', 'discounted_sum'])
+				// .then(r => {
+					// let sum = r.message.sum;
+					// let discounted_sum = r.message.discounted_sum;
+					// if (N == 1){
+						// console.log(sum - discounted_sum);
+						// frm.set_value('discount', sum - discounted_sum);
+						// frm.refresh_field('discount');
+					// }
+					// else{
+					// let q_v;
+					// if (dtype == 'Sales'){
+						// q_v = 'הצעת מחיר ' + itm + ' כוללת הנחה בסך: ';
+					// }
+					// else{
+						// q_v = 'חשבונית עסקה ' + itm + ' כוללת הנחה בסך: ';
+					// }
+					// flag = true;
+					// total_discounts += q_v + (sum - discounted_sum) + ' ש"ח.<p style="direction: rtl; text-align: right">';
+					// console.log(total_discounts);
+					// }
+				// });
+			// frappe.model.with_doc(dtype, itm, function () {
+				// let source_doc = frappe.model.get_doc(dtype, itm);
+				// let src_lst = source_doc.item_list;
+				// for (let i = 0; i < src_lst.length; i++){
+					// var addChild = frm.add_child("item_list");
+					// addChild.item = src_lst[i].item;
+					// addChild.quant = src_lst[i].quant;
+					// frm.refresh_field('item_list');
+				// }
+			// });
+		// }
+	// }
+// });
 
 function calculate_sum(frm){
 	var items = frm.doc.item_list;
