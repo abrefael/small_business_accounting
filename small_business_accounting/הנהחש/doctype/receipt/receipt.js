@@ -22,7 +22,7 @@ frappe.ui.form.on('Receipt', {
 	}
 });
 
-var total_discounts = '<p style="dir: rtl">שימו לב!<p>';
+var total_discounts = '<p style="direction: rtl">שימו לב!<p>';
 frappe.ui.form.on('Receipt', {
 	load_lst(frm) {
 		if (frm.is_new()){
@@ -133,7 +133,7 @@ frappe.ui.form.on('Receipt', {
 	        frappe.throw(__('זו קבלה מבוטלת! אין להפיקה מחדש! נא לשכפל את הקבלה מתפריט "..." ולהפיק קבלה חדשה.'));
 	        return;
 	    }
-		if (total_discounts > '<p style="dir: rtl">שימו לב!<p>'){
+		if (total_discounts > '<p style="direction: rtl">שימו לב!<p>'){
 			frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
 			() => {
 				console.log('yes');
