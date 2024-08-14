@@ -142,15 +142,15 @@ frappe.ui.form.on('Receipt', {
 		// else{
 			// origin = '(מקור)';
 		// }
-		// if flag {
-			// flag = false;
-			// frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
-			// () => {
-				// frm.set_value('created', 1);
-			// }, () => {
-				// return;
-			// });
-		// }
+		if flag {
+			flag = false;
+			frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
+			() => {
+				frm.set_value('created', 1);
+			}, () => {
+				return;
+			});
+		}
 		// var items = frm.doc.item_list;
 		// var item_list='{';
 		// var notes;
