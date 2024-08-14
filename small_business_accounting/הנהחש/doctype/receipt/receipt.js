@@ -132,14 +132,6 @@ frappe.ui.form.on('Receipt', {
 frappe.ui.form.on('Receipt', {
 	creat_receipt(frm) {
 		function build_the_receipt(){
-			var origin;
-			if (frm.doc.created){
-				origin = '(עותק)';
-			}
-			else{
-				origin = '(מקור)';
-				frm.set_value('created', 1);
-			}
 			var items = frm.doc.item_list;
 			var item_list='{';
 			var notes;
@@ -164,7 +156,6 @@ frappe.ui.form.on('Receipt', {
 					item_list = item_list+'"'+item+'":["'+row.desc+'",'+q+','+price+'],';
 			}
 			var discount = frm.doc.discount;
-			var q_num = frm.doc.name;
 			item_list = item_list.substring(0, item_list.length - 1)+'}';
 			console.log(item_list);
 			frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.Create_Receipt',
@@ -183,8 +174,27 @@ frappe.ui.form.on('Receipt', {
 			});
 		}
 		if (frm.doc.caceled){
-			frappe.throw(__('זו קבלה מבוטלת! אין להפיקה מחדש! נא לשכפל את הקבלה מתפריט "..." ולהפיק קבלה חדשה.'));
+			frappe.throw(__('<p style="direction: rtl; text-align: right">זו קבלה מבוטלת! אין להפיקה מחדש! נא לשכפל את הקבלה מתפריט "..." ולהפיק קבלה חדשה.'));
 			return;
+		}
+		var origin;
+		var q_num = frm.doc.name;
+		if (frm.doc.created){
+			origin = '(עותק)';
+			frappe.confirm('<p style="direction: rtl; text-align: right">קבלת מקור הופקה, האם להפיק עותק?<p style="direction: rtl; text-align: right">(בחירה ב-No תציג את הקבלה המקורית)',
+			() => {
+				build_the_receipt();
+				return;
+			}, () => {
+				origin = '(מקור)';
+				window.open(`${window.location.origin}/files/accounting/${q_num + origin}.pdf`, '_blank').focus();
+				return;
+			});
+
+		}
+		else{
+			origin = '(מקור)';
+			frm.set_value('created', 1);
 		}
 		if (flag) {
 			flag = false;
