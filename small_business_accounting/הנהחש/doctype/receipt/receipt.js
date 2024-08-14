@@ -195,6 +195,7 @@ frappe.ui.form.on('Receipt', {
 		else{
 			origin = '(מקור)';
 			frm.set_value('created', 1);
+			frm.save();
 			if (flag) {
 				flag = false;
 				frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
