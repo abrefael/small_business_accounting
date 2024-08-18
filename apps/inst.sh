@@ -18,7 +18,6 @@ echo $passwrd | sudo -S NEEDRESTART_MODE=a apt -qq install supervisor redis-serv
 MARKER_FILE=~/.MariaDB_handled.marker
 
 if [ ! -f "$MARKER_FILE" ]; then
- read -p "Let's configure your Mariadb server. Please hit Enter to start..."
  echo $passwrd | sudo -S mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$sql_passwrd';"
  echo $passwrd | sudo -S mysql -u root -p"$sql_passwrd" -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$sql_passwrd';"
  echo $passwrd | sudo -S mysql -u root -p"$sql_passwrd" -e "DELETE FROM mysql.user WHERE User='';"
