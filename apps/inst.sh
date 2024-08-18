@@ -65,3 +65,4 @@ bench setup socketio
 yes | bench setup supervisor
 bench setup redis
 echo $passwrd | sudo -S supervisorctl reload
+mkdir /home/frappe/frappe-bench/sites/accounting.local/public/files/accounting
