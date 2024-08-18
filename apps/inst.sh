@@ -1,8 +1,9 @@
 #!/bin/bash
 
 
+
+read -rsp "Please enter sudo password:" passwrd
 read -rsp "Please enter mysql root password:" sql_passwrd
-read -p "Let's Update the system first. Please hit Enter to start..."
 echo $passwrd | sudo -S timedatectl set-timezone "Asia/Jerusalem"
 echo $passwrd | sudo -S apt-get update -y
 echo $passwrd | sudo -S NEEDRESTART_MODE=a apt-get upgrade -y
