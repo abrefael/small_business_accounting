@@ -3,7 +3,10 @@
 
 
 read -rsp "Please enter sudo password:" passwrd
+printf " \n"
 read -rsp "Please enter mysql root password:" sql_passwrd
+printf " \n"
+read -rsp "Please enter site admin password:" admn_passwrd
 echo $passwrd | sudo -S timedatectl set-timezone "Asia/Jerusalem"
 echo $passwrd | sudo -S apt-get update -y
 echo $passwrd | sudo -S NEEDRESTART_MODE=a apt-get upgrade -y
@@ -45,7 +48,7 @@ echo $passwrd | sudo -S pip3 install frappe-bench
 bench init --frappe-branch version-15 frappe-bench
 cd frappe-bench/
 chmod -R o+rx /home/$USER/
-bench new-site accounting.local --db-root-password $sql_passwrd
+bench new-site accounting.local --db-root-password $sql_passwrd --admin-password $admn_passwrd
 bench use accounting.local
 bench get-app --resolve-deps https://github.com/abrefael/small_business_accounting.git
 bench install-app small_business_accounting
