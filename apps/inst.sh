@@ -42,6 +42,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 nvm install 18
 echo $passwrd | sudo -S NEEDRESTART_MODE=a apt-get install npm -y
+echo $passwrd | sudo -S NEEDRESTART_MODE=a apt-get install libreoffice-writer-nogui -y
 echo $passwrd | sudo -S npm install -g yarn
 echo $passwrd | sudo -S pip3 install frappe-bench
 bench init --frappe-branch version-15 frappe-bench
