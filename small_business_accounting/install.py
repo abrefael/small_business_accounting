@@ -40,7 +40,7 @@ def after_install():
 def after_migrate():
 	import filecmp
 	if not filecmp.cmp(src_fldr + csv_file, dest_fldr + csv_file):
-		shutil.copyfileobj(src_fldr + csv_file, dest_fldr + csv_file)
+		os.system("cp -rf '" + src_fldr + csv_file + "' '" + dest_fldr + csv_file + "'")
 		file = open(dest_fldr + csv_file,'r')
 		reader = csv.reader(file, delimiter=',')
 		for row in reader:
