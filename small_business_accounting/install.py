@@ -8,9 +8,9 @@ import shutil, os, csv
 def after_install():
 	from getpass import getpass
 	import subprocess
-	password = getpass('Please enter sudo password: ')
+	#password = getpass('Please enter sudo password: ')
 	os.system("cp -rf '" + src_fldr + "' '" + dest_fldr + "'")
-	subprocess.call('echo ' + password + ' | sudo -S apt install libreoffice-writer-nogui -y', shell=True)
+	#subprocess.call('echo ' + password + ' | sudo -S apt install libreoffice-writer-nogui -y', shell=True)
 	file = open(dest_fldr + csv_file,'r')
 	reader = csv.reader(file, delimiter=',')
 	for row in reader:
