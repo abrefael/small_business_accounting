@@ -21,16 +21,16 @@ def after_install():
 		doc.percent = float(row[1])
 		doc.insert()
 	print("אנא הכניסו חתימה להצעות מחיר, חשבוניות עסקה וקבלות. לסיום לחצו Ctrl-D:")
-	contents = []
-	while True:
-		try:
-			line = input()
-		except EOFError:
-			break
-		contents.append(line)
+	contents = ["בברכה,","אלון בן רפאל"]
+	#while True:
+		#try:
+			#line = input()
+		#except EOFError:
+			#break
+		#contents.append(line)
 	signature = '\n'.join(contents)
 	print('עכשיו נרצה לדעת את ראשי התיבות של השם שלך (באנגלית):')
-	line = input()
+	line = "ABR"#input()
 	frappe.db.set_single_value('Signature','signature',signature)
 	frappe.db.set_single_value('Initials','initials',line)
 	frappe.db.commit()
