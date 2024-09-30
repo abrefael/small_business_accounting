@@ -132,7 +132,7 @@ def Create_Travel_Report(objective, lst_of_dest, expenses, trip_name):
 	empty_line()
 	empty_line()
 	empty_line()
-	uri = document.add_file("/home/frappe/apps/sign.png")
+	uri = document.add_file(os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/sign.png')
 	image_frame = Frame.image_frame(
 		uri,
 		size=("2.2cm", "1cm"),
