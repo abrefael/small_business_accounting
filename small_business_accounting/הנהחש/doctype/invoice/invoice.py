@@ -127,7 +127,7 @@ def Create_Invoice(client, item_list, discount, h_p, q_num, objective, notes):
 		i = i+1
 		column.style = col_style
 		table.set_column(column.x, column)
-	uri = document.add_file("/home/frappe/apps/sign.png")
+	uri = document.add_file(os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/sign.png')
 	image_frame = Frame.image_frame(
 		uri,
 		size=("2.2cm", "1cm"),
