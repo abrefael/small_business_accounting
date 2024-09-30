@@ -8,9 +8,7 @@ import shutil, os, csv
 def after_install():
 	from getpass import getpass
 	import subprocess
-	#password = getpass('Please enter sudo password: ')
 	os.system("cp -rf '" + src_fldr + "' '" + dest_fldr + "'")
-	#subprocess.call('echo ' + password + ' | sudo -S apt install libreoffice-writer-nogui -y', shell=True)
 	file = open(dest_fldr + csv_file,'r')
 	reader = csv.reader(file, delimiter=',')
 	for row in reader:
@@ -20,20 +18,6 @@ def after_install():
 		doc.asset_type = type
 		doc.percent = float(row[1])
 		doc.insert()
-	print("אנא הכניסו חתימה להצעות מחיר, חשבוניות עסקה וקבלות. לסיום לחצו Ctrl-D:")
-	contents = ["בברכה,","אלון בן רפאל"]
-	while True:
-		try:
-			line = input()
-		except EOFError:
-			break
-		contents.append(line)
-	signature = '\n'.join(contents)
-	print('עכשיו נרצה לדעת את ראשי התיבות של השם שלך (באנגלית):')
-	line = input()
-	frappe.db.set_single_value('Signature','signature',signature)
-	frappe.db.set_single_value('Initials','initials',line)
-	frappe.db.commit()
 
 
 
