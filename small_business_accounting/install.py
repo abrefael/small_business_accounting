@@ -9,15 +9,15 @@ def after_install():
 	from getpass import getpass
 	import subprocess
 	os.system("cp -rf '" + src_fldr + "' '" + dest_fldr + "'")
-	# file = open(dest_fldr + csv_file,'r')
-	# reader = csv.reader(file, delimiter=',')
-	# for row in reader:
-		# doc = frappe.new_doc('Asset Type List')
-		# type = row[0]
-		# doc.name = type
-		# doc.asset_type = type
-		# doc.percent = float(row[1])
-		# doc.insert()
+	file = open(dest_fldr + csv_file,'r')
+	reader = csv.reader(file, delimiter=',')
+	for row in reader:
+		doc = frappe.new_doc('Asset Type List')
+		type = row[0]
+		doc.name = type
+		doc.asset_type = type
+		doc.percent = float(row[1])
+		doc.insert()
 
 
 
@@ -25,20 +25,20 @@ def after_migrate():
 	import filecmp
 	if not filecmp.cmp(src_fldr + csv_file, dest_fldr + csv_file):
 		os.system("cp -rf '" + src_fldr + csv_file + "' '" + dest_fldr + csv_file + "'")
-		# file = open(dest_fldr + csv_file,'r')
-		# reader = csv.reader(file, delimiter=',')
-		# for row in reader:
-			# type = row[0]
-			# percent = float(row[1])
-			# try:
-				# doc = frappe.get_doc('Asset Type List', type)
-			# except:
-				# doc = frappe.new_doc('Asset Type List')
-				# doc.name = type
-				# doc.asset_type = type
-				# doc.percent = percent
-				# doc.insert()
-			# else:
-				# if not percent == doc.percent:
-					# doc.percent = percent
-					# doc.save()
+		file = open(dest_fldr + csv_file,'r')
+		reader = csv.reader(file, delimiter=',')
+		for row in reader:
+			type = row[0]
+			percent = float(row[1])
+			try:
+				doc = frappe.get_doc('Asset Type List', type)
+			except:
+				doc = frappe.new_doc('Asset Type List')
+				doc.name = type
+				doc.asset_type = type
+				doc.percent = percent
+				doc.insert()
+			else:
+				if not percent == doc.percent:
+					doc.percent = percent
+					doc.save()
