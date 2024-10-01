@@ -13,6 +13,7 @@
    "fieldname": "sign_img",
    "fieldtype": "Attach",
    "lable": "Place signature image here"
+  },
   {
    "fieldname": "signature",
    "fieldtype": "Text",
