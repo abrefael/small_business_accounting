@@ -170,7 +170,7 @@ frappe.ui.form.on('Receipt', {
 			'notes': notes
 			}
 			}).then(r => {
-				window.open(`${window.location.origin}/files/accounting/${q_num + origin}.pdf`, '_blank').focus();
+				window.open(`${window.location.origin}/files/accounting/${q_num}(${origin}).pdf`, '_blank').focus();
 			});
 		}
 		if (frm.doc.caceled){
