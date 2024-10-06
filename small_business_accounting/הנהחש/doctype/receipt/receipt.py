@@ -12,6 +12,7 @@ class Receipt(Document):
 @frappe.whitelist()
 def Create_Receipt(client, item_list, discount, h_p, q_num, origin, objective, notes):
 	import odfdo, json, os
+	from datetime import datetime
 	OUTPUT_DIR = os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/accounting/'
 	item_dict = json.loads(item_list)
 	from odfdo import (
@@ -50,7 +51,7 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, origin, objective, n
 		table.set_row(row_number, row)
 		table.set_span((column - 4, row_number, column - 1, row_number), merge=True)
 		return row_number
-	TARGET = q_num + origin + ".odt"
+	TARGET = q_num + "(" + origin + ").odt"
 	document = Document("text")
 	body = document.body
 	document.delete_styles()
@@ -59,8 +60,13 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, origin, objective, n
 	document.merge_styles_from(style_document)
 	body = document.body
 	body.append(style_document.get_formatted_text())
-	title1 = Header(1, f"{objective}: {q_num} {origin}")
+	doc = frappe.get_doc('Receipt', q_name)
+	paragraph = Paragraph(doc.creation.strftime('%d/%m/%Y'), style="head_of_file")
+	body.append(paragraph)
+	title1 = Header(1, f"{objective}: {q_num}")
 	body.append(title1)
+	paragraph = Paragraph(origin, style="head_of_file")
+	body.append(paragraph)
 	title1 = Header(2, f"עבור: {client}")
 	body.append(title1)
 	title1 = Header(2, f"ע.מ/ת.ז: {h_p}")
@@ -107,7 +113,7 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, origin, objective, n
 	row_number = populate_totals('ממ"ע', "0.00", row_number)
 	if total*100%100 > 0:
 		row_number = populate_totals('עיגול אגורות',f"{total:,.0f}  ₪", row_number)
-	row_number = populate_totals('סה"כ לתשלום',f"{total:,.0f}  ₪", row_number)
+	row_number = populate_totals('סה"כ',f"{total:,.0f}  ₪", row_number)
 	cell_style = create_table_cell_style(
 		color="black",
 		background_color=(210, 210, 210),
