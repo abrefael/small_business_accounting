@@ -180,14 +180,14 @@ frappe.ui.form.on('Receipt', {
 		var origin;
 		var q_num = frm.doc.name;
 		if (frm.doc.created){
-			origin = '(עותק)';
+			origin = 'העתק נאמן למקור';
 			frappe.confirm('<p style="direction: rtl; text-align: right">קבלת מקור הופקה, האם להפיק עותק?<p style="direction: rtl; text-align: right">(בחירה ב-No תציג את הקבלה המקורית)',
 			() => {
 				build_the_receipt();
 				return;
 			}, () => {
-				origin = '(מקור)';
-				window.open(`${window.location.origin}/files/accounting/${q_num + origin}.pdf`, '_blank').focus();
+				origin = 'מקור';
+				window.open(`${window.location.origin}/files/accounting/${q_num}(${origin}).pdf`, '_blank').focus();
 				return;
 			});
 
