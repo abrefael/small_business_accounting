@@ -164,7 +164,7 @@ def Create_Receipt(q_num, origin, objective, notes):
 	table.set_row(row.y, row)
 	row = Row()
 	pay_m = doc.pay_method
-	row.set_value(0, pay_m)
+	row.set_value(0, pay_m.split(' (')[0])
 	row.set_value(1, doc.receipt_date.strftime('%d/%m/%Y'))
 	client = frappe.get_doc('Clients', doc.client)
 	bank = client.bank
