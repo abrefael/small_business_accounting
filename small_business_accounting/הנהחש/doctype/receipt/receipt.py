@@ -81,7 +81,7 @@ def Create_Receipt(q_num, origin, objective, notes):
 	body.append(title1)
 	body.append(Paragraph(""))
 	body.append(Paragraph(""))
-	itms = frappe.db.sql(f"SELECT * FROM `tabItem Child List` WHERE parent={q_num}",as_dict=1)
+	itms = frappe.db.sql(f"SELECT * FROM `tabItem Child List` WHERE parent='{q_num}'",as_dict=1)
 	table = Table("Table")
 	body.append(table)
 	row = Row()
