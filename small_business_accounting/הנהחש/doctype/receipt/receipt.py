@@ -109,7 +109,7 @@ def Create_Receipt(q_num, origin, objective, notes):
 	table.set_row(row_number, row)
 	table.set_span((0, row_number, 3, row_number))
 	row_number = populate_totals('סה"כ',f"{total:,.2f}  ₪", row_number)
-	discount = float(discount)
+	discount = float(doc.discount)
 	if discount > 0 and discount < 1:
 		discount = discount*100
 		row_number = populate_totals('הנחה (%)',f"{discount:,.0f}", row_number)
