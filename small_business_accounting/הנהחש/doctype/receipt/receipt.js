@@ -24,6 +24,7 @@ frappe.ui.form.on('Receipt', {
 
 var flag = false;
 var total_discounts = '<p style="direction: rtl; text-align: right">שימו לב!<p style="direction: rtl; text-align: right">';
+
 frappe.ui.form.on('Receipt', {
 	load_lst(frm) {
 		if (frm.is_new()){
@@ -104,7 +105,6 @@ function calculate_sum(frm){
 		let price = row.price;
 		sum += quant * price;
 	}
-	//frm.set_value('sum',sum);
 	if (discount > 1){
 		discounted_sum = sum - discount;
 	}
@@ -133,7 +133,6 @@ frappe.ui.form.on('Receipt', {
 	creat_receipt(frm) {
 		function build_the_receipt(){
 			var items = frm.doc.item_list;
-			var item_list='{';
 			var notes;
 			var highest_sum = 0;
 			if (!frm.doc.notes){
@@ -153,17 +152,10 @@ frappe.ui.form.on('Receipt', {
 					refresh_field("most_impact");
 					highest_sum = sum;
 				}
-					item_list = item_list+'"'+item+'":["'+row.desc+'",'+q+','+price+'],';
 			}
 			var discount = frm.doc.discount;
-			item_list = item_list.substring(0, item_list.length - 1)+'}';
-			console.log(item_list);
 			frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.Create_Receipt',
 			args: {
-			'client': frm.doc.client,
-			'item_list': item_list,
-			'discount': discount,
-			'h_p': frm.doc.h_p,
 			'q_num': q_num,
 			'origin': origin,
 			'objective':"קבלה מס'",
@@ -193,7 +185,7 @@ frappe.ui.form.on('Receipt', {
 
 		}
 		else{
-			origin = '(מקור)';
+			origin = 'מקור';
 			frm.set_value('created', 1);
 			frm.save();
 			if (flag) {
@@ -237,5 +229,20 @@ frappe.ui.form.on('Receipt', {
 			frm.save();
 			window.open(`${window.location.origin}/files/accounting/${q_num}`, '_blank').focus();
 		});
+	}
+});
+
+
+
+frappe.ui.form.on('Receipt', {
+	pay_method(frm) {
+		var pay_method = frm.doc.pay_method;
+		if ((pay_method != "מזומן")||(pay_method.includes("אפליקציה להעברת כסף"))){
+			frappe.msgprint({
+				title: __('שימו לב'),
+				indicator: 'green',
+				message: __('האם יש לרשום מספר אסמכתא?')
+			});
+		}
 	}
 });
