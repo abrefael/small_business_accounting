@@ -11,11 +11,13 @@
   "column_break_wofg",
   "receipt_date",
   "total",
+  "pay_method",
+  "reference",
   "section_break_xmaw",
   "item_list",
-  "section_break_I",
+  "section_break_i",
   "discount",
-  "column_break_I",
+  "column_break_i",
   "calc_sum",
   "section_break_mtme",
   "load_lst",
@@ -119,7 +121,7 @@
    "default": "Today",
    "fieldname": "receipt_date",
    "fieldtype": "Date",
-   "label": "\u05ea\u05d0\u05e8\u05d9\u05da"
+   "label": "\u05ea\u05d0\u05e8\u05d9\u05da \u05e2\u05e8\u05da"
   },
   {
    "fieldname": "section_break_izin",
@@ -127,14 +129,6 @@
   },
   {
    "fieldname": "column_break_jawm",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "section_break_I",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_I",
    "fieldtype": "Column Break"
   },
   {
@@ -163,6 +157,27 @@
    "fieldname": "most_impact",
    "fieldtype": "Data",
    "hidden": 1
+  },
+  {
+   "fieldname": "pay_method",
+   "fieldtype": "Select",
+   "label": "\u05e9\u05d9\u05d8\u05ea \u05ea\u05e9\u05dc\u05d5\u05dd",
+   "options": "\u05d4\u05e2\u05d1\u05e8\u05d4 \u05d1\u05e0\u05e7\u05d0\u05d9\u05ea\n\u05de\u05d6\u05d5\u05de\u05df\n\u05d0\u05e4\u05dc\u05d9\u05e7\u05e6\u05d9\u05d4 \u05dc\u05d4\u05e2\u05d1\u05e8\u05ea \u05db\u05e1\u05e3 (\u05d1\u05d9\u05d8, \u05e4\u05d9\u05d9\u05d1\u05d5\u05e7\u05e1, \u05e4\u05e4\u05e8 \u05d5\u05db\u05d3')\n\u05db\u05e8\u05d8\u05d9\u05e1 \u05d0\u05e9\u05e8\u05d0\u05d9\n\u05d4\u05de\u05d7\u05d0\u05d4\n\u05db\u05e8\u05d8\u05d9\u05e1 \u05d3\u05d1\u05d9\u05d8\n\u05de\u05d8\u05d1\u05e2 \u05d3\u05d9\u05d2\u05d9\u05d8\u05dc\u05d9 (\u05d1\u05d9\u05d8\u05e7\u05d5\u05d9\u05df \u05d5\u05db\u05d3')",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_i",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_i",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "000",
+   "fieldname": "reference",
+   "fieldtype": "Data",
+   "label": "\u05d0\u05e1\u05de\u05db\u05ea\u05d0 (\u05d0\u05dd \u05d9\u05e9)"
   }
  ],
  "index_web_pages_for_search": 1,
