@@ -54,7 +54,7 @@ def Create_Receipt(q_num, origin, objective, notes):
 	TARGET = q_num + "(" + origin + ").odt"
 	document = Document("/home/frappe/apps/template.odt")
 	e = document.styles.root.get_elements('office:master-styles')[0].get_elements('style:master-page')[0].get_elements('style:header')[0]
-	e.children[0].replace('HEADER',frappe.get_fullname())
+	e.children[0].replace('HEADER',frappe.utils.get_fullname())
 	table = e.children[1]
 	row = table.rows[0]
 	row.set_value('B',frappe.db.get_single_value('Signature','op_num'))
