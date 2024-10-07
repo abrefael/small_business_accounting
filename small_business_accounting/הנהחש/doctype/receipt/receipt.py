@@ -10,11 +10,11 @@ class Receipt(Document):
 	
 
 @frappe.whitelist()
-def Create_Receipt(client, item_list, discount, h_p, q_num, origin, objective, notes):
+def Create_Receipt(q_num, origin, objective, notes):
 	import odfdo, json, os
 	from datetime import datetime
 	OUTPUT_DIR = os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/accounting/'
-	item_dict = json.loads(item_list)
+								  
 	from odfdo import (
 		Cell,
 		Frame,
@@ -52,27 +52,36 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, origin, objective, n
 		table.set_span((column - 4, row_number, column - 1, row_number), merge=True)
 		return row_number
 	TARGET = q_num + "(" + origin + ").odt"
-	document = Document("text")
+	document = Document("/home/frappe/apps/template.odt")
+	e = document.styles.root.get_elements('office:master-styles')[0].get_elements('style:master-page')[0].get_elements('style:header')[0]
+	e.children[0].replace('HEADER',frappe.get_fullname())
+	table = e.children[1]
+	row = table.rows[0]
+	row.set_value('B',frappe.db.get_single_value('Signature','op_num'))
+	table.set_row(row.y, row)
+	row = table.rows[1]
+	row.set_value('B',frappe.db.get_single_value('Signature','phone_num'))
+	table.set_row(row.y, row)
+	row = table.rows[2]
+	row.set_value('B',frappe.db.get_single_value('Signature','email_add'))
+	table.set_row(row.y, row)
+	del e
 	body = document.body
-	document.delete_styles()
-	STYLE_SOURCE = "/home/frappe/apps/template.odt"
-	style_document = Document(STYLE_SOURCE)
-	document.merge_styles_from(style_document)
-	body = document.body
-	body.append(style_document.get_formatted_text())
-	doc = frappe.get_doc('Receipt', q_name)
+												 
+	doc = frappe.get_doc('Receipt', q_num)
 	paragraph = Paragraph(doc.creation.strftime('%d/%m/%Y'), style="head_of_file")
 	body.append(paragraph)
 	title1 = Header(1, f"{objective}: {q_num}")
 	body.append(title1)
 	paragraph = Paragraph(origin, style="head_of_file")
 	body.append(paragraph)
-	title1 = Header(2, f"עבור: {client}")
+	title1 = Header(2, f"עבור: {doc.client}")
 	body.append(title1)
-	title1 = Header(2, f"ע.מ/ת.ז: {h_p}")
+	title1 = Header(2, f"ע.מ/ת.ז: {doc.h_p}")
 	body.append(title1)
 	body.append(Paragraph(""))
 	body.append(Paragraph(""))
+	itms = frappe.db.sql(f"SELECT * FROM `tabItem Child List` WHERE parent={q_num}",as_dict=1)
 	table = Table("Table")
 	body.append(table)
 	row = Row()
@@ -85,10 +94,10 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, origin, objective, n
 	)
 	style_name = document.insert_style(style=cell_style, automatic=True)
 	total = 0
-	for prod in list(item_dict.keys()):
-		desc = item_dict[prod][0]
-		price = item_dict[prod][2]
-		quant = item_dict[prod][1]
+	for itm in itms:
+		desc = itm.desc
+		price = itm.price
+		quant = itm.quant
 		cost = price * quant
 		row_number = populate_items(prod, desc, f"{price:,.2f} ₪", str(quant), f"{cost:,.2f} ₪", row_number)
 		total = total + cost
@@ -133,7 +142,47 @@ def Create_Receipt(client, item_list, discount, h_p, q_num, origin, objective, n
 		i = i+1
 		column.style = col_style
 		table.set_column(column.x, column)
-	uri = document.add_file(os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/sign.png')
+	table = Table("Table",width=7)
+	body.append(Paragraph("שולם באמצעות:"))
+	body.append(table)
+	widths = ["3.5cm","3cm","1cm","1.43cm","2.94cm","2.93	cm","2.2cm"]
+	i = 0
+	for column in table.columns:
+		col_style = Style("table-column" , width=widths[i])
+		name = document.insert_style(style=col_style, automatic=True)
+		column.style = col_style
+		table.set_column(i, column)
+		i = i+1
+	row = Row()
+	row.set_values(['אמצעי תשלום','תאריך','בנק','סניף','מס’ חשבון','אסמכתא','סכום (₪)'])
+	table.set_row("A1", row)
+	cell_style = create_table_cell_style(background_color="#eeeeee")
+	style_name = document.insert_style(style=cell_style, automatic=True)
+	for cell in row.traverse():
+		cell.style = style_name
+		row.set_cell(x=cell.x, cell=cell)
+	table.set_row(row.y, row)
+	row = Row()
+	pay_m = doc.pay_method
+	row.set_value(0, pay_m)
+	row.set_value(1, doc.receipt_date.strftime('%d/%m/%Y'))
+	client = frappe.get_doc('Clients', doc.client)
+	bank = client.bank
+	if not bank == "יש לבחור בנק":
+		bank = bank.split(' ')[0]
+		row.set_value(2, bank)
+		row.set_value(3, client.brench)
+		row.set_value(4, client.account_num)
+	if not doc.reference == "000":
+		row.set_value(5, doc.reference)
+	row.set_value(6, f"{total:,.0f}")
+	table.set_row(1, row)
+	row = Row()
+	row.set_value(5, 'סה"כ שולם:')
+	row.set_value(6, f"{total:,.0f}")
+	table.set_row(2, row)
+	table.set_span('A3:F3', merge=True)
+	uri = document.add_file(os.getcwd() + '/' + cstr(frappe.local.site) + '/public/' + frappe.db.get_single_value('Signature','sign_img'))
 	image_frame = Frame.image_frame(
 		uri,
 		size=("2.2cm", "1cm"),
