@@ -11,8 +11,13 @@
   "client_name",
   "id_num",
   "email",
-  "\u05d8\u05dc\u05e4\u05d5\u05df",
+  "phone_num",
   "\u05ea\u05d0\u05e8\u05d9\u05da_\u05e8\u05d9\u05e9\u05d5\u05dd",
+  "section_break_kabq",
+  "bank",
+  "brench",
+  "account_num",
+  "section_break_ihof",
   "extras",
   "actions"
  ],
@@ -46,12 +51,6 @@
    "options": "Email"
   },
   {
-   "fieldname": "\u05d8\u05dc\u05e4\u05d5\u05df",
-   "fieldtype": "Data",
-   "label": "\u05d8\u05dc\u05e4\u05d5\u05df",
-   "options": "Phone"
-  },
-  {
    "fieldname": "\u05ea\u05d0\u05e8\u05d9\u05da_\u05e8\u05d9\u05e9\u05d5\u05dd",
    "fieldtype": "Date",
    "label": "\u05ea\u05d0\u05e8\u05d9\u05da \u05e8\u05d9\u05e9\u05d5\u05dd"
@@ -67,6 +66,35 @@
    "fieldtype": "Link",
    "label": "\u05e4\u05e2\u05d5\u05dc\u05d5\u05ea",
    "options": "Clients Action"
+  },
+  {
+   "fieldname": "phone_num",
+   "fieldtype": "Data",
+   "label": "\u05d8\u05dc\u05e4\u05d5\u05df",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "section_break_kabq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "bank",
+   "fieldtype": "Data",
+   "label": "\u05d1\u05e0\u05e7 (\u05de\u05e1\u05e4\u05e8)"
+  },
+  {
+   "fieldname": "brench",
+   "fieldtype": "Data",
+   "label": "\u05e1\u05e0\u05d9\u05e3 (\u05de\u05e1\u05e4\u05e8)"
+  },
+  {
+   "fieldname": "account_num",
+   "fieldtype": "Data",
+   "label": "\u05de\u05e1\u05e4\u05e8 \u05d7\u05e9\u05d1\u05d5\u05df"
+  },
+  {
+   "fieldname": "section_break_ihof",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
