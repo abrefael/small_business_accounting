@@ -95,6 +95,7 @@ def Create_Receipt(q_num, origin, objective, notes):
 	style_name = document.insert_style(style=cell_style, automatic=True)
 	total = 0
 	for itm in itms:
+		prod = itm.item
 		desc = itm.desc
 		price = itm.price
 		quant = itm.quant
