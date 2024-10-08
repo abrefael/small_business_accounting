@@ -203,8 +203,18 @@ def Create_Receipt(q_num, origin, objective, notes):
 	paragraph.append(image_frame)
 	body.append(paragraph)
 	save_new(document,TARGET)
+	if origin == 'מקור':
+		frappe.db.set_value('Receipt', q_num, 'created', 1)
+	elif origin =='טיוטא':
+		from pypdf import PdfWriter, PdfReader
+		TARGET = OUTPUT_DIR + TARGET
+		cancel_file = "/home/frappe/apps/draft.pdf"
+		stamp = PdfReader(cancel_file).pages[0]
+		writer = PdfWriter(clone_from=TARGET)
+		for page in writer.pages:
+			page.merge_page(stamp, over=False)
+		writer.write(TARGET)
 
-	
 @frappe.whitelist()
 def cancel_receipt(q_num):
 	from pypdf import PdfWriter, PdfReader
@@ -212,8 +222,9 @@ def cancel_receipt(q_num):
 	OUTPUT_DIR = os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/'
 	src_file = OUTPUT_DIR + "accounting/" + q_num
 	cancel_file = "/home/frappe/apps/canceled.pdf"
+	frappe.db.set_value('Receipt', q_num, 'caceled', 1)
 	stamp = PdfReader(cancel_file).pages[0]
 	writer = PdfWriter(clone_from=src_file)
 	for page in writer.pages:
-		page.merge_page(stamp, over=False)  # here set to False for watermarking
+		page.merge_page(stamp, over=False)
 	writer.write(src_file)
