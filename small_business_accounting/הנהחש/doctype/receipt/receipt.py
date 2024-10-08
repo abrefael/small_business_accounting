@@ -218,15 +218,18 @@ def Create_Receipt(q_num, origin, objective, notes):
 
 @frappe.whitelist()
 def cancel_receipt(q_num):
-	from pypdf import PdfWriter, PdfReader
-	import os
-	OUTPUT_DIR = os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/'
-	src_file = OUTPUT_DIR + "accounting/" + q_num
-	cancel_file = "/home/frappe/apps/canceled.pdf"
 	frappe.db.set_value('Receipt', q_num, 'caceled', 1)
 	frappe.db.commit()
-	stamp = PdfReader(cancel_file).pages[0]
-	writer = PdfWriter(clone_from=src_file)
-	for page in writer.pages:
-		page.merge_page(stamp, over=False)
-	writer.write(src_file)
+	from pypdf import PdfWriter, PdfReader
+	import os
+	try:
+		OUTPUT_DIR = os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/'
+		src_file = OUTPUT_DIR + "accounting/" + q_num
+		cancel_file = "/home/frappe/apps/canceled.pdf"
+		stamp = PdfReader(cancel_file).pages[0]
+		writer = PdfWriter(clone_from=src_file)
+		for page in writer.pages:
+			page.merge_page(stamp, over=False)
+		writer.write(src_file)
+	except:
+		pass
