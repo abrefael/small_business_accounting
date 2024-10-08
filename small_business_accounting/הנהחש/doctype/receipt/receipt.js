@@ -22,8 +22,20 @@ frappe.ui.form.on('Receipt', {
 	}
 });
 
+
 var flag = false;
 var total_discounts = '<p style="direction: rtl; text-align: right">שימו לב!<p style="direction: rtl; text-align: right">';
+
+
+
+frappe.ui.form.on('Receipt', {
+	before_save(frm) {
+		calculate_sum(frm);
+	}
+});
+
+
+
 
 frappe.ui.form.on('Receipt', {
 	load_lst(frm) {
@@ -129,9 +141,16 @@ frappe.ui.form.on('Receipt', {
 });
 
 
+
 frappe.ui.form.on('Receipt', {
-	creat_receipt(frm) {
-		function build_the_receipt(){
+	create_draft(frm) {
+		frm.save();
+		build_the_receipt(frm,'טיוטא',frm.doc.q_num);
+	}
+});
+
+
+function build_the_receipt(frm,origin,q_num){
 			var items = frm.doc.item_list;
 			var notes;
 			var highest_sum = 0;
@@ -165,6 +184,10 @@ frappe.ui.form.on('Receipt', {
 				window.open(`${window.location.origin}/files/accounting/${q_num}(${origin}).pdf`, '_blank').focus();
 			});
 		}
+
+
+frappe.ui.form.on('Receipt', {
+	creat_receipt(frm) {
 		if (frm.doc.caceled){
 			frappe.throw(__('<p style="direction: rtl; text-align: right">זו קבלה מבוטלת! אין להפיקה מחדש! נא לשכפל את הקבלה מתפריט "..." ולהפיק קבלה חדשה.'));
 			return;
@@ -175,7 +198,7 @@ frappe.ui.form.on('Receipt', {
 			origin = 'העתק נאמן למקור';
 			frappe.confirm('<p style="direction: rtl; text-align: right">קבלת מקור הופקה, האם להפיק עותק?<p style="direction: rtl; text-align: right">(בחירה ב-No תציג את הקבלה המקורית)',
 			() => {
-				build_the_receipt();
+				build_the_receipt(frm,origin,q_num);
 				return;
 			}, () => {
 				origin = 'מקור';
@@ -186,20 +209,19 @@ frappe.ui.form.on('Receipt', {
 		}
 		else{
 			origin = 'מקור';
-			frm.set_value('created', 1);
 			frm.save();
 			if (flag) {
 				flag = false;
 				frappe.confirm(total_discounts + 'בטוחים שרוצים להמשיך?',
 				() => {
-					build_the_receipt();
+					build_the_receipt(frm,origin,q_num);
 					return;
 				}, () => {
 					return;
 				});
 			}
 			else{
-				build_the_receipt();
+				build_the_receipt(frm,origin,q_num);
 			}
 		}
 	}
@@ -209,7 +231,11 @@ frappe.ui.form.on('Receipt', {
 frappe.ui.form.on('Receipt', {
 	validate: function(frm) {
 		if(frm.doc.caceled) {
-			frappe.throw(__('זו קבלה מבוטלת! אין להפיקה מחדש! נא לשכפל את הקבלה מתפריט "..." ולהפיק קבלה חדשה.'));
+			frappe.throw(__('זו קבלה מבוטלת! אין לשנותה!'));
+			validated = false;
+		}
+		if(frm.doc.created) {
+			frappe.throw(__('קבלה זו כבר הופקה. אין לשנותה!'));
 			validated = false;
 		}
 	}
@@ -219,14 +245,13 @@ frappe.ui.form.on('Receipt', {
 
 frappe.ui.form.on('Receipt', {
 	cancel_r(frm) {
-		frm.set_value('caceled', 1);
 		var q_num = frm.doc.name + '(מקור).pdf';
 		frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.cancel_receipt',
 		args: {
 		'q_num': q_num
 		}
 		}).then(r => {
-			frm.save();
+			frm.refresh();
 			window.open(`${window.location.origin}/files/accounting/${q_num}`, '_blank').focus();
 		});
 	}
