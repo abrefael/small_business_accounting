@@ -12,16 +12,21 @@
   "column_break_rcmz",
   "profit_pre",
   "profit_adj",
-  "\u05d4\u05db\u05e0\u05e1\u05d5\u05ea_section",
-  "items",
+  "income_section",
   "total_profit",
-  "column_break_yoeb",
-  "\u05d4\u05d5\u05e6\u05d0\u05d5\u05ea_\u05d4\u05e0\u05d4\u05dc\u05d4_\u05d5\u05db\u05dc\u05dc\u05d9\u05d5\u05ea",
+  "column_break_rdffdf",
+  "items",
+  "expenses_section",
+  "empty_head"
   "office",
   "insurance",
-  "car",
   "subconturctors",
-  "asset_loss"
+  "column_break_yoeb",
+  "expense_head",
+  "transport",
+  "car",
+  "asset_loss",
+  "travel"
  ],
  "fields": [
   {
@@ -33,6 +38,10 @@
    "fieldname": "calc",
    "fieldtype": "Button",
    "label": "\u05d7\u05e9\u05d1"
+  },
+  {
+   "fieldname": "column_break_rdffdf",
+   "fieldtype": "Column Break"
   },
   {
    "fieldname": "column_break_rcmz",
@@ -51,7 +60,11 @@
    "precision": "0"
   },
   {
-   "fieldname": "\u05d4\u05db\u05e0\u05e1\u05d5\u05ea_section",
+   "fieldname": "income_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "expenses_section",
    "fieldtype": "Section Break"
   },
   {
@@ -71,15 +84,34 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "\u05d4\u05d5\u05e6\u05d0\u05d5\u05ea_\u05d4\u05e0\u05d4\u05dc\u05d4_\u05d5\u05db\u05dc\u05dc\u05d9\u05d5\u05ea",
+   "fieldname": "expense_head",
    "fieldtype": "Heading",
    "label": "\u05d4\u05d5\u05e6\u05d0\u05d5\u05ea \u05d4\u05e0\u05d4\u05dc\u05d4 \u05d5\u05db\u05dc\u05dc\u05d9\u05d5\u05ea"
+  },
+  {
+   "fieldname": "empty_head",
+   "fieldtype": "Heading",
+   "label": " "
   },
   {
    "default": "0",
    "fieldname": "office",
    "fieldtype": "Float",
    "label": "\u05de\u05e9\u05e8\u05d3\u05d9\u05d5\u05ea \u05d5\u05d0\u05d7\u05d6\u05e7\u05d4",
+   "precision": "0"
+  },
+  {
+   "default": "0",
+   "fieldname": "transport",
+   "fieldtype": "Float",
+   "label": "\u05d4\u05d5\u05e6\u05d0\u05d5\u05ea \u05e0\u05e1\u05d9\u05e2\u05d4",
+   "precision": "0"
+  },
+  {
+   "default": "0",
+   "fieldname": "travel",
+   "fieldtype": "Float",
+   "label": "\u05e0\u05e1\u05d9\u05e2\u05d5\u05ea \u05dc\u05d7\u05d5\"\u05dc",
    "precision": "0"
   },
   {
