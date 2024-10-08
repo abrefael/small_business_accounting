@@ -183,7 +183,6 @@ function build_the_receipt(frm,origin,q_num){
 			'notes': notes
 			}
 			}).then(r => {
-				frm.refresh()
 				window.open(`${window.location.origin}/files/accounting/${q_num}(${origin}).pdf`, '_blank').focus();
 			});
 		}
@@ -248,10 +247,9 @@ frappe.ui.form.on('Receipt', {
 
 frappe.ui.form.on('Receipt', {
 	cancel_r(frm) {
-		var q_num = frm.doc.name + '(מקור).pdf';
 		frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.receipt.receipt.cancel_receipt',
 		args: {
-		'q_num': q_num
+		'q_num': frm.doc.name
 		}
 		}).then(r => {
 			frm.refresh();
