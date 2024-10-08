@@ -147,7 +147,7 @@ frappe.ui.form.on('Receipt', {
 frappe.ui.form.on('Receipt', {
 	create_draft(frm) {
 		frm.save();
-		build_the_receipt(frm,'טיוטא',frm.doc.q_num);
+		build_the_receipt(frm,'טיוטא',frm.doc.name);
 	}
 });
 
