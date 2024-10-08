@@ -180,9 +180,8 @@ function build_the_receipt(frm,origin,q_num){
 				let price = row.price;
 				let q = row.quant;
 				let sum = price * q;
-				let item = row.item;
 				if (sum > highest_sum){
-					frm.doc.most_impact = item;
+					frm.set_value("most_impact",row.item);
 					refresh_field("most_impact");
 					highest_sum = sum;
 				}
