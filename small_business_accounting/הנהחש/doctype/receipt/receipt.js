@@ -139,6 +139,7 @@ frappe.ui.form.on('Receipt', {
 frappe.ui.form.on('Receipt', {
 	calc_sum(frm) {
 		console.log('calc_sum');
+		frm.dirty();
 		calculate_sum(frm);
 		console.log('calc_sum_2');
 	}
