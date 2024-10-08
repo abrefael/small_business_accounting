@@ -160,7 +160,7 @@ frappe.ui.form.on('Receipt', {
 frappe.ui.form.on('Receipt', {
 	create_draft(frm) {
 		frm.save();
-		build_the_receipt(frm,'טיוטא',frm.doc.name);
+		build_the_receipt(frm,'טיוטה',frm.doc.name);
 	}
 });
 
