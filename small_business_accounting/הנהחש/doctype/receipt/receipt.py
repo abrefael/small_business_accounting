@@ -225,7 +225,7 @@ def cancel_receipt(q_num):
 	import os
 	try:
 		OUTPUT_DIR = os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/'
-		src_file = OUTPUT_DIR + "accounting/" + q_num
+		src_file = OUTPUT_DIR + "accounting/" + q_num + '(מקור).pdf'
 		cancel_file = "/home/frappe/apps/canceled.pdf"
 		stamp = PdfReader(cancel_file).pages[0]
 		writer = PdfWriter(clone_from=src_file)
