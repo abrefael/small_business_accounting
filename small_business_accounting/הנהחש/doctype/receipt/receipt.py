@@ -67,7 +67,6 @@ def Create_Receipt(q_num, origin, objective, notes):
 	table.set_row(row.y, row)
 	del e
 	body = document.body
-												 
 	doc = frappe.get_doc('Receipt', q_num)
 	paragraph = Paragraph(doc.creation.strftime('%d/%m/%Y'), style="head_of_file")
 	body.append(paragraph)
