@@ -205,6 +205,7 @@ def Create_Receipt(q_num, origin, objective, notes):
 	save_new(document,TARGET)
 	if origin == 'מקור':
 		frappe.db.set_value('Receipt', q_num, 'created', 1)
+		frappe.db.commit()
 	elif origin =='טיוטא':
 		from pypdf import PdfWriter, PdfReader
 		TARGET = OUTPUT_DIR + TARGET
@@ -223,6 +224,7 @@ def cancel_receipt(q_num):
 	src_file = OUTPUT_DIR + "accounting/" + q_num
 	cancel_file = "/home/frappe/apps/canceled.pdf"
 	frappe.db.set_value('Receipt', q_num, 'caceled', 1)
+	frappe.db.commit()
 	stamp = PdfReader(cancel_file).pages[0]
 	writer = PdfWriter(clone_from=src_file)
 	for page in writer.pages:
