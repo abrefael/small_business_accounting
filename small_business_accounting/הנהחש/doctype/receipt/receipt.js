@@ -70,26 +70,37 @@ frappe.ui.form.on('Receipt', {
 			else{
 				dtype = 'Invoice';
 			}
-			frappe.db.get_value(dtype, itm, ['sum', 'discounted_sum'])
+			frappe.db.get_value(dtype, itm, ['discount'])
 				.then(r => {
 					let sum = r.message.sum;
-					let discounted_sum = r.message.discounted_sum;
+					let discount = r.message.discount;
 					if (N == 1){
-						console.log(sum - discounted_sum);
-						frm.set_value('discount', sum - discounted_sum);
+						frm.set_value('discount', discount);
 						frm.refresh_field('discount');
 					}
 					else{
 					let q_v;
 					if (dtype == 'Sales'){
-						q_v = 'הצעת מחיר ' + itm + ' כוללת הנחה בסך: ';
+						if (discount > 1){
+							q_v = 'הצעת מחיר ' + itm + ' כוללת הנחה בסך: ';
+							total_discounts += q_v + (sum - discounted_sum) + ' ש"ח.<p style="direction: rtl; text-align: right">';
+						}
+						else {
+							q_v = 'הצעת מחיר ' + itm + ' כוללת הנחה בערך של ';
+							total_discounts += q_v + (sum - discounted_sum) + '% מהצעת המחיר.<p style="direction: rtl; text-align: right">';
+						}
 					}
 					else{
-						q_v = 'חשבונית עסקה ' + itm + ' כוללת הנחה בסך: ';
+						if (discount > 1){
+							q_v = 'חשבונית עסקה ' + itm + ' כוללת הנחה בסך: ';
+							total_discounts += q_v + (sum - discounted_sum) + ' ש"ח.<p style="direction: rtl; text-align: right">';
+						}
+						else {
+							q_v = 'חשבונית עסקה ' + itm + ' כוללת הנחה בערך של ';
+							total_discounts += q_v + (sum - discounted_sum) + '% מהחשבונית.<p style="direction: rtl; text-align: right">';
+						}
 					}
 					flag = true;
-					total_discounts += q_v + (sum - discounted_sum) + ' ש"ח.<p style="direction: rtl; text-align: right">';
-					console.log(total_discounts);
 					}
 				});
 			frappe.model.with_doc(dtype, itm, function () {
@@ -101,6 +112,7 @@ frappe.ui.form.on('Receipt', {
 					addChild.quant = src_lst[i].quant;
 					frm.refresh_field('item_list');
 				}
+				calculate_sum(frm);
 			});
 		}
 	}
@@ -138,10 +150,8 @@ frappe.ui.form.on('Receipt', {
 
 frappe.ui.form.on('Receipt', {
 	calc_sum(frm) {
-		console.log('calc_sum');
 		frm.dirty();
 		calculate_sum(frm);
-		console.log('calc_sum_2');
 	}
 });
 
