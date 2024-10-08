@@ -220,6 +220,7 @@ def Create_Receipt(q_num, origin, objective, notes):
 def cancel_receipt(q_num):
 	frappe.db.set_value('Receipt', q_num, 'caceled', 1)
 	frappe.db.commit()
+	frappe.rename_doc('Receipt', q_num, q_num+' (מבוטלת)', merge=False)
 	from pypdf import PdfWriter, PdfReader
 	import os
 	try:
