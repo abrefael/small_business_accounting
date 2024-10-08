@@ -6,6 +6,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "create_draft",
   "creat_receipt",
   "client",
   "column_break_wofg",
@@ -80,6 +81,11 @@
    "fieldname": "creat_receipt",
    "fieldtype": "Button",
    "label": "\u05d4\u05e4\u05e7\u05ea \u05e7\u05d1\u05dc\u05d4"
+  },
+  {
+   "fieldname": "create_draft",
+   "fieldtype": "Button",
+   "label": "\u05d4\u05e4\u05e7\u05ea \u05d8\u05d9\u05d5\u05d8\u05d0"
   },
   {
    "fetch_from": "client.id_num",
