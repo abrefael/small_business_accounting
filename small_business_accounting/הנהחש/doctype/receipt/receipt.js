@@ -107,6 +107,7 @@ frappe.ui.form.on('Receipt', {
 });
 
 function calculate_sum(frm){
+	if (frm.is_dirty()){
 	var items = frm.doc.item_list;
 	var sum = 0;
 	var discounted_sum = 0;
@@ -125,6 +126,7 @@ function calculate_sum(frm){
 	}
 	frm.set_value('total',discounted_sum);
 	frm.save();
+	}
 }
 
 frappe.ui.form.on('Receipt', {
