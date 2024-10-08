@@ -183,6 +183,7 @@ function build_the_receipt(frm,origin,q_num){
 			'notes': notes
 			}
 			}).then(r => {
+				frm.refresh()
 				window.open(`${window.location.origin}/files/accounting/${q_num}(${origin}).pdf`, '_blank').focus();
 			});
 		}
