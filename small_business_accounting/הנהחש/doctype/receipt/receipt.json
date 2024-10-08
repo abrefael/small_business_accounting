@@ -85,7 +85,7 @@
   {
    "fieldname": "create_draft",
    "fieldtype": "Button",
-   "label": "\u05d4\u05e4\u05e7\u05ea \u05d8\u05d9\u05d5\u05d8\u05d0"
+   "label": "\u05d4\u05e4\u05e7\u05ea \u05d8\u05d9\u05d5\u05d8\u05d4"
   },
   {
    "fetch_from": "client.id_num",
