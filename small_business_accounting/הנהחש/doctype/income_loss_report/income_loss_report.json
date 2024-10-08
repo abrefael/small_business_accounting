@@ -17,16 +17,15 @@
   "column_break_rdffdf",
   "items",
   "expenses_section",
-  "empty_head",
   "office",
   "insurance",
   "subconturctors",
+  "travel",
   "column_break_yoeb",
   "expense_head",
   "transport",
   "car",
   "asset_loss",
-  "travel"
  ],
  "fields": [
   {
@@ -87,11 +86,6 @@
    "fieldname": "expense_head",
    "fieldtype": "Heading",
    "label": "\u05d4\u05d5\u05e6\u05d0\u05d5\u05ea \u05d4\u05e0\u05d4\u05dc\u05d4 \u05d5\u05db\u05dc\u05dc\u05d9\u05d5\u05ea"
-  },
-  {
-   "fieldname": "empty_head",
-   "fieldtype": "Heading",
-   "label": " "
   },
   {
    "default": "0",
