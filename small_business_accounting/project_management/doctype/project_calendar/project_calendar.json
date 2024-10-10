@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-22 12:00:45.464988",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "start",
+  "column_break_zzpd",
+  "end"
+ ],
+ "fields": [
+  {
+   "fieldname": "start",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Session start",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_zzpd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "end",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Session end",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-09-22 14:17:54.131103",
+ "modified_by": "Administrator",
+ "module": "Project Management",
+ "name": "Project Calendar",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
