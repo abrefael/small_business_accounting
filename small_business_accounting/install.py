@@ -8,6 +8,21 @@ import shutil, os, csv
 def after_install():
 	from getpass import getpass
 	import subprocess
+	frappe.db.sql("""
+	INSERT
+	INTO `tabCustom HTML Block`
+	SET
+		name='Project_Calendar',
+		creation=NOW(),
+		modified=NOW(),
+		modified_by='Administrator',
+		owner='Administrator',
+		docstatus=0,
+		private=0,
+		html='<iframe src="/app/sessions-calendar/view/calendar" style="width:100%;height: 850px;"></iframe>',
+		script='',
+		style='';
+	""")
 	os.system("cp -rf '" + src_fldr + "' '" + dest_fldr + "'")
 	file = open(dest_fldr + csv_file,'r')
 	reader = csv.reader(file, delimiter=',')
