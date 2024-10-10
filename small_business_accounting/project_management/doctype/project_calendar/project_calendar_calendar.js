@@ -2,7 +2,7 @@
 frappe.views.calendar["Project Calendar"] = {
 	field_map: {
 		start: "start",
-		end: "start",
+		end: "end",
 		id: "name",
 		title: "name",
 		allDay: "allDay"
