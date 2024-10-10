@@ -4,7 +4,7 @@ frappe.views.calendar["Project Calendar"] = {
 		start: "start",
 		end: "end",
 		id: "name",
-		title: "name",
+		title: "project",
 		allDay: "allDay"
 	},
 	get_events_method: "frappe.desk.calendar.get_events",
