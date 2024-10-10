@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"PxA56oWmZN\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Private Practice</span>\",\"col\":12}},{\"id\":\"qCr9VB4ciz\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Session_Calendar\",\"col\":12}},{\"id\":\"UfV0pxeqvA\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Patients\",\"col\":3}},{\"id\":\"1hZ82d4Ck1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Session Summary\",\"col\":3}}]",
+ "content": "[{\"id\":\"PxA56oWmZN\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Project Management</span>\",\"col\":12}},{\"id\":\"qCr9VB4ciz\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Project_Management\",\"col\":12}}]",
  "creation": "2024-09-22 14:26:36.120116",
  "custom_blocks": [
   {
