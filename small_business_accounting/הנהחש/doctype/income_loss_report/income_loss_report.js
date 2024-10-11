@@ -17,7 +17,7 @@ frappe.ui.form.on('Income Loss Report', {
 			.then(r => {
 				
 				let values = r.message;
-				if (values.length > 0):
+				if (values.length > 0){
 					travels = values.reduce((partialSum, a) => partialSum + a, 0);
 					frm.set_value('asset_loss', travels);
 				}
