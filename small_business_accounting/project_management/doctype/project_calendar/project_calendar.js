@@ -7,12 +7,6 @@
 // 	},
 // });
 
-frappe.ui.form.on('Project Calendar', {
-  onload_post_render(frm) {
-    $(document.body).trigger("toggleSidebar");
-    console.log('fff');
- 	}
-});
 
 
 frappe.ui.form.on('Project Calendar', {
