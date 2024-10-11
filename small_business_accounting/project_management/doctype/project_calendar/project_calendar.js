@@ -9,7 +9,14 @@
 
 
 frappe.ui.form.on('Project Calendar', {
-  refresh(frm) {
+  start_timer(frm) {
+
+ 	}
+});
+
+
+frappe.ui.form.on('Project Calendar', {
+  end_timer(frm) {
 
  	}
 });
