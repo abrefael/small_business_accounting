@@ -20,3 +20,11 @@ frappe.ui.form.on('Project Calendar', {
     frm.set_value("end",frappe.datetime.get_datetime_as_string());
  	}
 });
+
+
+frappe.ui.form.on('Project Calendar', {
+  go_back(frm) {
+    history.back()
+;
+ 	}
+});
