@@ -71,7 +71,8 @@
   {
    "fieldname": "fiscal_year",
    "fieldtype": "Int",
-   "label": "\u05e9\u05e0\u05d4 \u05e4\u05d9\u05e1\u05e7\u05dc\u05d9\u05ea"
+   "label": "\u05e9\u05e0\u05d4 \u05e4\u05d9\u05e1\u05e7\u05dc\u05d9\u05ea",
+   "hidden": 1
   },
   {
    "fieldname": "total",
