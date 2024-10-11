@@ -6,10 +6,39 @@
  "engine": "InnoDB",
  "field_order": [
   "start",
+  "start_timer",
   "column_break_zzpd",
-  "end"
+  "end",
+  "end_timer",
+  "clients",
+  "item",
+  "project"
  ],
  "fields": [
+  {
+   "fieldname": "start_timer",
+   "fieldtype": "Button",
+   "label": "\u05d4\u05ea\u05d7\u05dc\u05d4"
+  },
+  {
+   "fieldname": "end_timer",
+   "fieldtype": "Button",
+   "label": "\u05e1\u05d9\u05d5\u05dd"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "\u05e4\u05e2\u05d9\u05dc\u05d5\u05ea",
+   "options": "Item"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "\u05e9\u05dd \u05e4\u05e8\u05d5\u05d9\u05d9\u05e7\u05d8",
+   "options": "Projects"
+  },
   {
    "fieldname": "start",
    "fieldtype": "Datetime",
@@ -26,6 +55,13 @@
    "fieldtype": "Datetime",
    "in_list_view": 1,
    "label": "Session end",
+   "reqd": 1
+  },
+  {
+   "fieldname": "clients",
+   "fieldtype": "Link",
+   "label": "\u05dc\u05e7\u05d5\u05d7",
+   "options": "Clients",
    "reqd": 1
   }
  ],
