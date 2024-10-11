@@ -11,7 +11,17 @@ frappe.ui.form.on('Income Loss Report', {
 			args: {
 				"fisc_year": frm.doc.year
 			}
-    	}).then(r => {
+		}).then(r => {
+			var travels = 0;
+			frappe.db.get_value('Task', {fiscal_year: frm.doc.year}, 'total')
+			.then(r => {
+				
+				let values = r.message;
+				if (values.length > 0):
+					travels = values.reduce((partialSum, a) => partialSum + a, 0);
+					frm.set_value('asset_loss', travels);
+				}
+			})
 			const EXPENSES = r.message[1];
 			const asset_loss = r.message[2];
 			const RECEIPT = r.message[3];
@@ -35,6 +45,7 @@ frappe.ui.form.on('Income Loss Report', {
 				}
 				losses += val;
 			}
+			losses += travels;
 			for (const key of Object.keys(RECEIPT)) {
 				let row = frm.add_child("items");
 				let val = RECEIPT[key];
