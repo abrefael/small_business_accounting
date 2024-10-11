@@ -5,11 +5,14 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "go_back",
+  "section_break_I",
   "start",
   "start_timer",
   "column_break_zzpd",
   "end",
   "end_timer",
+  "section_break_II",
   "clients",
   "item",
   "project"
@@ -19,6 +22,19 @@
    "fieldname": "start_timer",
    "fieldtype": "Button",
    "label": "\u05d4\u05ea\u05d7\u05dc\u05d4"
+  },
+  {
+   "fieldname": "section_break_I",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_II",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "go_back",
+   "fieldtype": "Button",
+   "label": "\u05d7\u05d6\u05e8\u05d4 \u05dc\u05dc\u05d5\u05d7 \u05e9\u05e0\u05d4"
   },
   {
    "fieldname": "end_timer",
