@@ -49,7 +49,7 @@ def after_migrate():
 		owner='Administrator',
 		docstatus=0,
 		private=0,
-		html='<iframe src="/app/sessions-calendar/view/calendar" style="width:100%;height: 850px;"></iframe>',
+		html='<iframe src="/app/project-calendar/view/calendar" style="width:100%;height: 850px;"></iframe>',
 		script='',
 		style='';
 	""")
