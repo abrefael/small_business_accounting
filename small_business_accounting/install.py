@@ -12,7 +12,7 @@ def after_install():
 	INSERT
 	INTO `tabCustom HTML Block`
 	SET
-		name='Project_Calendar',
+		name='Project_Management',
 		creation=NOW(),
 		modified=NOW(),
 		modified_by='Administrator',
@@ -42,7 +42,7 @@ def after_migrate():
 	INSERT
 	INTO `tabCustom HTML Block`
 	SET
-		name='Project_Calendar',
+		name='Project_Management',
 		creation=NOW(),
 		modified=NOW(),
 		modified_by='Administrator',
