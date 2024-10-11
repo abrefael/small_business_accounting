@@ -10,13 +10,13 @@
 
 frappe.ui.form.on('Project Calendar', {
   start_timer(frm) {
-
+    frm.set_value("start",frappe.datetime.get_datetime_as_string());
  	}
 });
 
 
 frappe.ui.form.on('Project Calendar', {
   end_timer(frm) {
-
+    frm.set_value("end",frappe.datetime.get_datetime_as_string());
  	}
 });
