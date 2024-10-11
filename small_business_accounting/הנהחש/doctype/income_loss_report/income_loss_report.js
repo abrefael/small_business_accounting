@@ -13,7 +13,7 @@ frappe.ui.form.on('Income Loss Report', {
 			}
 		}).then(r => {
 			var travels = 0;
-			frappe.db.get_value('Task', {fiscal_year: frm.doc.year}, 'total')
+			frappe.db.get_value('Travels', {fiscal_year: frm.doc.year}, 'total')
 			.then(r => {
 				
 				let values = r.message;
