@@ -46,8 +46,8 @@ echo $passwrd | sudo -S NEEDRESTART_MODE=a apt-get install libreoffice-writer-no
 echo $passwrd | sudo -S npm install -g yarn
 echo $passwrd | sudo -S pip3 install frappe-bench
 bench init --frappe-branch version-15 frappe-bench
+chmod -R o+rx .
 cd frappe-bench/
-chmod -R o+rx /home/$USER/
 bench new-site accounting.local --db-root-password $sql_passwrd --admin-password $admn_passwrd
 bench use accounting.local
 bench get-app --resolve-deps https://github.com/abrefael/small_business_accounting.git
@@ -69,4 +69,4 @@ bench setup socketio
 yes | bench setup supervisor
 bench setup redis
 echo $passwrd | sudo -S supervisorctl reload
-mkdir /home/frappe/frappe-bench/sites/accounting.local/public/files/accounting
+mkdir sites/accounting.local/public/files/accounting
