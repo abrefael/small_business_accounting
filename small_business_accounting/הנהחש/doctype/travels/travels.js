@@ -26,9 +26,9 @@ frappe.ui.form.on('Travels', {
 			year_flag = true;
 		}
 		for (let i = 0; i < N; i++){
-			let dest = dests[i].replace('"','\\"');
+			let dest = dests[i];
 			let left = dest.left;
-			dest_lst += '["' + dest.dest + '","' + dest.arrive + '","' + left + '"] "';
+			dest_lst += '["' + dest.dest.replace('"','\\"') + '","' + dest.arrive + '","' + left + '"] "';
 			if (year_flag){
 				let year = left.split('-')[0];
 				if (fiscal_year < year) {
