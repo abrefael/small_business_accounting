@@ -9,7 +9,7 @@
   "expense",
   "sum_matach",
   "matach",
-  "sum"
+  "shach"
  ],
  "fields": [
   {
@@ -36,7 +36,7 @@
    "options": "\u20ac\n$\n\u00a3"
   },
   {
-   "fieldname": "sum",
+   "fieldname": "shach",
    "fieldtype": "float",
    "in_list_view": 1,
    "precision": "2",
