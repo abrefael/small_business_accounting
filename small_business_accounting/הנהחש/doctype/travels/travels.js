@@ -34,7 +34,7 @@ frappe.ui.form.on('Travels', {
 				if (fiscal_year < year) {
 					fiscal_year = year;
 					frm.set_value("fiscal_year",Number(fiscal_year));
-					frm.refresh_feild(fiscal_year);
+					frm.refresh_feild("fiscal_year");
 				}
 			}
 		}
