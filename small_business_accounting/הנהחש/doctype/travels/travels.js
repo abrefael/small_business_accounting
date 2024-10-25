@@ -74,7 +74,7 @@ frappe.ui.form.on('Travels', {
 			else {
 				sum_matach += ' ' + ex.matach;
 			}
-			ex_lst += "'" + expense + "':[" + sum + ",'" + sum_matach + "'] ";
+			ex_lst += "'" + expense + "':[" + expense.sum + ",'" + sum_matach + "'] ";
 		}
 		ex_lst = ex_lst.replace("'] '","'],'");
 		ex_lst += "}";
