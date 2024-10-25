@@ -32,8 +32,8 @@
    "fieldname": "matach",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "\u20ac/$",
-   "options": "\u20ac\n$"
+   "label": "\u20ac/$/\u00a3",
+   "options": "\u20ac\n$\n\u00a3"
   },
   {
    "fieldname": "sum",
