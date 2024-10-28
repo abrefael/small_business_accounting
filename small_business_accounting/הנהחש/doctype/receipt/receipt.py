@@ -167,12 +167,13 @@ def Create_Receipt(q_num, origin, objective, notes):
 	row.set_value(0, pay_m.split(' (')[0])
 	row.set_value(1, doc.receipt_date.strftime('%d/%m/%Y'))
 	client = frappe.get_doc('Clients', doc.client)
-	bank = client.bank
-	if not bank == "יש לבחור בנק":
-		bank = bank.split(' ')[0]
-		row.set_value(2, bank)
-		row.set_value(3, client.brench)
-		row.set_value(4, client.account_num)
+	if pay_m == "העברה בנקאית" or pay_m == "המחאה" or pay_m == "כרטיס דביט":
+		bank = client.bank
+		if not bank == "יש לבחור בנק":
+			bank = bank.split(' ')[0]
+			row.set_value(2, bank)
+			row.set_value(3, client.brench)
+			row.set_value(4, client.account_num)
 	if not doc.reference == "000":
 		row.set_value(5, doc.reference)
 	row.set_value(6, f"{total:,.0f}")
