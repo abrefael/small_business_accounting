@@ -47,31 +47,16 @@ frappe.ui.form.on('Invoice', {
 
 frappe.ui.form.on('Invoice', {
 	create_invoice(frm) {
-	    var items = frm.doc.item_list;
-	    var item_list='{';
 	    var notes;
-		var discount = frm.doc.discount;
 	    if (!frm.doc.notes){
 	        notes='';
 	    }
 	    else{
 	        notes = frm.doc.notes;
 	    }
-	    for (let i = 0; i < items.length; i++){
-			let row = items[i];
-			let quant = row.quant;
-			let price = row.price;
-	        item_list = item_list+'"'+row.item+'":["'+row.desc+'",'+ quant + ',' + price + '],';
-	    }
-	    item_list = item_list.substring(0, item_list.length - 1)+'}';
-	    console.log(item_list);
 	    var q_num = frm.doc.name;
         frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.invoice.invoice.Create_Invoice',
         args: {
-        'client': frm.doc.client,
-        'item_list': item_list,
-        'discount': discount,
-        'h_p': frm.doc.h_p,
         'q_num': q_num,
         'objective':"חשבונית עסקה מס'",
         'notes': notes
