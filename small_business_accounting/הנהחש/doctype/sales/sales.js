@@ -8,10 +8,9 @@
 // });
 
 
+
 frappe.ui.form.on('Sales', {
 	quotation(frm) {
-	    var items = frm.doc.item_list;
-	    var item_list='{';
 	    var notes;
 	    if (!frm.doc.notes){
 	        notes='';
@@ -19,18 +18,9 @@ frappe.ui.form.on('Sales', {
 	    else{
 	        notes = frm.doc.notes;
 	    }
-	    for (let i = 0; i < items.length; i++){
-			let row = items[i];
-	        item_list = item_list+'"'+row.item+'":['+row.quant+','+row.price+'],';
-	    }
-	    item_list = item_list.substring(0, item_list.length - 1)+'}';
 	    var q_num = frm.doc.name;
         frappe.call({method:'small_business_accounting.%D7%94%D7%A0%D7%94%D7%97%D7%A9.doctype.sales.sales.Create_Quotation',
         args: {
-        'client': frm.doc.client,
-        'item_list': item_list,
-        'discount': frm.doc.discount,
-        'h_p': frm.doc.h_p,
         'q_num': q_num,
         'objective':"הצעת מחיר מס'",
         'notes': notes
@@ -40,6 +30,7 @@ frappe.ui.form.on('Sales', {
         });
 	}
 });
+
 
 frappe.ui.form.on('Sales', {
 	calc_sum(frm) {
