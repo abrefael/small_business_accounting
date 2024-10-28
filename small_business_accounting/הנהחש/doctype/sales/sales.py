@@ -10,10 +10,9 @@ class Sales(Document):
 	pass
 
 @frappe.whitelist()
-def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
+def Create_Quotation(q_num, objective, notes):
 	import odfdo, json, os
 	OUTPUT_DIR = os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/accounting/'
-	item_dict = json.loads(item_list)
 	from odfdo import (
 		Cell,
 		Frame,
@@ -28,7 +27,7 @@ def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
 	def save_new(document: Document, name: str):
 		new_path = OUTPUT_DIR + name
 		document.save(new_path, pretty=True)
-		os.system(f'/usr/bin/soffice --headless --convert-to pdf:writer_pdf_Export --outdir {OUTPUT_DIR} {new_path}')
+		os.system(f"/usr/bin/soffice --headless --convert-to pdf:writer_pdf_Export --outdir {OUTPUT_DIR} '{new_path}'")
 	def populate_items(prod, val, quant, cost, row_number):
 		row = Row()
 		row.set_value("A", prod)
@@ -55,22 +54,34 @@ def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
 		table.set_row(row_number, row)
 		table.set_span((column - 3, row_number, column - 1, row_number), merge=True)
 		return row_number
-	document = Document("text")
+	TARGET = q_num + ".odt"
+	document = Document("/home/frappe/apps/template.odt")
+	e = document.styles.root.get_elements('office:master-styles')[0].get_elements('style:master-page')[0].get_elements('style:header')[0]
+	e.children[0].replace('HEADER',frappe.utils.get_fullname())
+	table = e.children[1]
+	row = table.rows[0]
+	row.set_value('B',frappe.db.get_single_value('Signature','op_num'))
+	table.set_row(row.y, row)
+	row = table.rows[1]
+	row.set_value('B',frappe.db.get_single_value('Signature','phone_num'))
+	table.set_row(row.y, row)
+	row = table.rows[2]
+	row.set_value('B',frappe.db.get_single_value('Signature','email_add'))
+	table.set_row(row.y, row)
+	del e
 	body = document.body
-	document.delete_styles()
-	STYLE_SOURCE = "/home/frappe/apps/template.odt"
-	style_document = Document(STYLE_SOURCE)
-	document.merge_styles_from(style_document)
-	body = document.body
-	body.append(style_document.get_formatted_text())
-	title1 = Header(1, f"{objective}: {q_num} (מקור)")
+	doc = frappe.get_doc('Sales', q_num)
+	paragraph = Paragraph(doc.creation.strftime('%d/%m/%Y'), style="head_of_file")
+	body.append(paragraph)
+	title1 = Header(1, f"{objective}: {q_num}")
 	body.append(title1)
-	title1 = Header(2, f"עבור: {client}")
+	title1 = Header(2, f"עבור: {doc.client}")
 	body.append(title1)
-	title1 = Header(2, f"ע.מ/ת.ז: {h_p}")
+	title1 = Header(2, f"ע.מ/ת.ז: {doc.h_p}")
 	body.append(title1)
 	body.append(Paragraph(""))
 	body.append(Paragraph(""))
+	itms = frappe.db.sql(f"SELECT * FROM `tabItem Child List` WHERE parent='{q_num}'",as_dict=1)
 	table = Table("Table")
 	body.append(table)
 	row = Row()
@@ -83,11 +94,11 @@ def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
 	)
 	style_name = document.insert_style(style=cell_style, automatic=True)
 	total = 0
-	for prod in list(item_dict.keys()):
-		price = item_dict[prod][1]
-		quant = item_dict[prod][0]
+	for itm in itms:
+		price = itm.price
+		quant = itm.quant
 		cost = price * quant
-		row_number = populate_items(prod, f"{price:,.2f} ₪", str(quant), f"{cost:,.2f} ₪", row_number)
+		row_number = populate_items(itm.item, f"{price:,.2f} ₪", str(quant), f"{cost:,.2f} ₪", row_number)
 		total = total + cost
 	cols = table.width
 	column = cols - 1
@@ -96,7 +107,7 @@ def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
 	table.set_row(row_number, row)
 	table.set_span((0, row_number, 3, row_number))
 	row_number = populate_totals('סה"כ',f"{total:,.2f}  ₪", row_number)
-	discount = float(discount)
+	discount = float(doc.discount)
 	if discount > 0 and discount < 1:
 		discount = discount*100
 		row_number = populate_totals('הנחה (%)',f"{discount:,.0f}", row_number)
@@ -130,7 +141,7 @@ def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
 		i = i+1
 		column.style = col_style
 		table.set_column(column.x, column)
-	uri = document.add_file(os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/sign.png')
+	uri = document.add_file(os.getcwd() + '/' + cstr(frappe.local.site) + '/public/' + frappe.db.get_single_value('Signature','sign_img'))
 	image_frame = Frame.image_frame(
 		uri,
 		size=("2.2cm", "1cm"),
@@ -149,7 +160,5 @@ def Create_Quotation(client, item_list, discount, h_p, q_num, objective, notes):
 	paragraph = Paragraph("", style="ltr")
 	paragraph.append(image_frame)
 	body.append(paragraph)
-	save_new(document,q_num + '.odt')
-	
-
+	save_new(document,TARGET)
 
