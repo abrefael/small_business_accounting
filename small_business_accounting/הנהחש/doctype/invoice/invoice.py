@@ -98,10 +98,9 @@ def Create_Invoice(q_num, objective, notes):
 	total = 0
 	for itm in itms:
 		price = itm.price
-		desc = itm.desc					
 		quant = itm.quant
 		cost = price * quant
-		row_number = populate_items(itm.item, f"{price:,.2f} ₪", str(quant), f"{cost:,.2f} ₪", row_number)
+		row_number = populate_items(itm.item, itm.desc, f"{price:,.2f} ₪", str(quant), f"{cost:,.2f} ₪", row_number)
 		total = total + cost
 	cols = table.width
 	column = cols - 1
