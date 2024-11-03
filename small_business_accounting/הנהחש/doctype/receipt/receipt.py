@@ -76,7 +76,7 @@ def Create_Receipt(q_num, origin, objective, notes):
 	body.append(paragraph)
 	title1 = Header(2, f"עבור: {doc.client}")
 	body.append(title1)
-	title1 = Header(2, f"ע.מ/ת.ז/\"ר: {doc.h_p}")
+	title1 = Header(2, f"ע.מ/ת.ז/ע\"ר: {doc.h_p}")
 	body.append(title1)
 	body.append(Paragraph(""))
 	body.append(Paragraph(""))
