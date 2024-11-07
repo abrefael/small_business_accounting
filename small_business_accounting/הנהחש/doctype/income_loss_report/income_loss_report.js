@@ -15,11 +15,11 @@ frappe.ui.form.on('Income Loss Report', {
 			var travels = 0;
 			frappe.db.get_value('Travels', {fiscal_year: frm.doc.year}, 'total')
 			.then(r => {
-				
 				let values = r.message;
 				if (values.length > 0){
 					travels = values.reduce((partialSum, a) => partialSum + a, 0);
-					frm.set_value('asset_loss', travels);
+					frm.set_value('travel', travels);
+					losses += travels;
 				}
 			})
 			const EXPENSES = r.message[1];
