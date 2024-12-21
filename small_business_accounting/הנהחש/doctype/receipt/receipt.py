@@ -52,7 +52,7 @@ def Create_Receipt(q_num, origin, objective, notes):
 		table.set_span((column - 4, row_number, column - 1, row_number), merge=True)
 		return row_number
 	TARGET = q_num + "(" + origin + ").odt"
-	document = Document("/home/frappe/apps/template.odt")
+	document = Document("/home/frappe/frappe-bench/apps/small_business_accounting/apps/template.odt")
 	e = document.styles.root.get_elements('office:master-styles')[0].get_elements('style:master-page')[0].get_elements('style:header')[0]
 	e.children[0].replace('HEADER',frappe.utils.get_fullname())
 	table = e.children[1]
@@ -218,7 +218,7 @@ def cancel_receipt(q_num):
 	try:
 		OUTPUT_DIR = os.getcwd() + '/' + cstr(frappe.local.site) + '/public/files/'
 		src_file = OUTPUT_DIR + "accounting/" + q_num + '(מקור).pdf'
-		cancel_file = "/home/frappe/apps/canceled.pdf"
+		cancel_file = "/home/frappe/frappe-bench/apps/small_business_accounting/apps/canceled.pdf"
 		stamp = PdfReader(cancel_file).pages[0]
 		writer = PdfWriter(clone_from=src_file)
 		for page in writer.pages:
