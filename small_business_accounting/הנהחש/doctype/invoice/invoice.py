@@ -57,7 +57,7 @@ def Create_Invoice(q_num, objective, notes):
 		table.set_span((column - 4, row_number, column - 1, row_number), merge=True)
 		return row_number
 	TARGET = q_num + ".odt"
-	document = Document("/home/frappe/apps/template.odt")
+	document = Document("/home/frappe/frappe-bench/apps/small_business_accounting/apps/template.odt")
 	e = document.styles.root.get_elements('office:master-styles')[0].get_elements('style:master-page')[0].get_elements('style:header')[0]
 	e.children[0].replace('HEADER',frappe.utils.get_fullname())
 	table = e.children[1]
